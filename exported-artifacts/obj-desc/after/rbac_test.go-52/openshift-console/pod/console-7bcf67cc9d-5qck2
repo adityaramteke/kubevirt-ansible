@@ -1,0 +1,74 @@
+Name:               console-7bcf67cc9d-5qck2
+Namespace:          openshift-console
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:08:32 +0530
+Labels:             app=openshift-console
+                    component=ui
+                    pod-template-hash=3679237758
+Annotations:        openshift.io/scc=restricted
+Status:             Running
+IP:                 10.128.0.94
+Controlled By:      ReplicaSet/console-7bcf67cc9d
+Containers:
+  console:
+    Container ID:  cri-o://4d039bf7941b8fdf44b8013b2d96d1cf121a3af86bafda3b0f25cb334ba5620d
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-console:v3.11.16
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-console@sha256:0eeefade7c03fa034ebd432d8adba68f845b740b497841f22e4725c7f716978d
+    Port:          8443/TCP
+    Host Port:     0/TCP
+    Command:
+      /opt/bridge/bin/bridge
+      --public-dir=/opt/bridge/static
+      --config=/var/console-config/console-config.yaml
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:06 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:05 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:52 +0530
+    Ready:          True
+    Restart Count:  2
+    Limits:
+      cpu:     100m
+      memory:  100Mi
+    Requests:
+      cpu:        100m
+      memory:     100Mi
+    Liveness:     http-get https://:8443/health delay=30s timeout=1s period=10s #success=1 #failure=3
+    Readiness:    http-get https://:8443/health delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /var/console-config from console-config (rw)
+      /var/oauth-config from oauth-config (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-xj9cq (ro)
+      /var/serving-cert from serving-cert (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  serving-cert:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  console-serving-cert
+    Optional:    false
+  oauth-config:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  console-oauth-config
+    Optional:    false
+  console-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      console-config
+    Optional:  false
+  default-token-xj9cq:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-xj9cq
+    Optional:    false
+QoS Class:       Guaranteed
+Node-Selectors:  node-role.kubernetes.io/master=true
+Tolerations:     node.kubernetes.io/memory-pressure:NoSchedule
+Events:          <none>

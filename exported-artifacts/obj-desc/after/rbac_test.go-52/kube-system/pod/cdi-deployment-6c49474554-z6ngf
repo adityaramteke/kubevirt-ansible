@@ -1,0 +1,53 @@
+Name:               cdi-deployment-6c49474554-z6ngf
+Namespace:          kube-system
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Sat, 10 Nov 2018 21:50:54 +0530
+Labels:             app=containerized-data-importer
+                    pod-template-hash=2705030110
+Annotations:        <none>
+Status:             Running
+IP:                 10.128.0.102
+Controlled By:      ReplicaSet/cdi-deployment-6c49474554
+Containers:
+  cdi-controller:
+    Container ID:  cri-o://0a159b944f6e9bc272d76be87c0eb7873f33e205e8c4d15b4fe240e8a707452e
+    Image:         cnv-tech-preview/virt-cdi-controller:v1.3.0
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/cnv-tech-preview/virt-cdi-controller@sha256:51e11964273140c2caccec4aa8884f1add5ee8b8b473db1eaa9fe9cb8cfee291
+    Port:          <none>
+    Host Port:     <none>
+    Args:
+      -v=1
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:09 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:26:18 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:51 +0530
+    Ready:          True
+    Restart Count:  1
+    Environment:
+      IMPORTER_IMAGE:       cnv-tech-preview/virt-cdi-importer:v1.3.0
+      CLONER_IMAGE:         cnv-tech-preview/virt-cdi-cloner:v1.3.0
+      UPLOADSERVER_IMAGE:   cnv-tech-preview/virt-cdi-uploadserver:v1.3.0
+      PULL_POLICY:          IfNotPresent
+      UPLOADPROXY_SERVICE:  cdi-uploadproxy
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from cdi-sa-token-94ljr (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  cdi-sa-token-94ljr:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  cdi-sa-token-94ljr
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     <none>
+Events:          <none>

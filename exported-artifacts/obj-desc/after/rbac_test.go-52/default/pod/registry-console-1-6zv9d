@@ -1,0 +1,60 @@
+Name:               registry-console-1-6zv9d
+Namespace:          default
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:05:51 +0530
+Labels:             app=registry-console
+                    deployment=registry-console-1
+                    deploymentconfig=registry-console
+                    name=registry-console
+Annotations:        openshift.io/deployment-config.latest-version=1
+                    openshift.io/deployment-config.name=registry-console
+                    openshift.io/deployment.name=registry-console-1
+                    openshift.io/generated-by=OpenShiftNewApp
+                    openshift.io/scc=restricted
+Status:             Running
+IP:                 10.128.0.105
+Controlled By:      ReplicationController/registry-console-1
+Containers:
+  registry-console:
+    Container ID:   cri-o://1a3317cab3fb860d3914d31baeffd3a455ae528a641bcba843cca75bcff54b57
+    Image:          brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/registry-console:v3.11.16
+    Image ID:       brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/registry-console@sha256:95bb2bbf70db9b5ea465bb34661abc1f794ce6e7fe8ce9160bbf0484ee7266ec
+    Port:           9090/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:12 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:00 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:46 +0530
+    Ready:          True
+    Restart Count:  2
+    Liveness:       http-get http://:9090/ping delay=10s timeout=5s period=10s #success=1 #failure=3
+    Readiness:      http-get http://:9090/ping delay=0s timeout=5s period=10s #success=1 #failure=3
+    Environment:
+      OPENSHIFT_OAUTH_PROVIDER_URL:  https://cnv-executor-aditya-master1.example.com:8443
+      OPENSHIFT_OAUTH_CLIENT_ID:     cockpit-oauth-client
+      KUBERNETES_INSECURE:           false
+      COCKPIT_KUBE_INSECURE:         false
+      REGISTRY_ONLY:                 true
+      REGISTRY_HOST:                 docker-registry-default.cloudapps.example.com
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-xtch7 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  default-token-xtch7:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-xtch7
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  node-role.kubernetes.io/master=true
+Tolerations:     <none>
+Events:          <none>

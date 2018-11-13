@@ -1,0 +1,92 @@
+Name:               router-1-m9fhq
+Namespace:          default
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:05:18 +0530
+Labels:             deployment=router-1
+                    deploymentconfig=router
+                    router=router
+Annotations:        openshift.io/deployment-config.latest-version=1
+                    openshift.io/deployment-config.name=router
+                    openshift.io/deployment.name=router-1
+                    openshift.io/scc=hostnetwork
+Status:             Running
+IP:                 172.16.0.18
+Controlled By:      ReplicationController/router-1
+Containers:
+  router:
+    Container ID:   cri-o://0715caa28f9a99ca37cdad6f2b374f294fe8e2dc41684450bacca943e087a95f
+    Image:          brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-haproxy-router:v3.11.16
+    Image ID:       brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-haproxy-router@sha256:d65fbe9355be85ed565b44e47521ec53981b487f536e0ac4c4c72173b5d762d3
+    Ports:          80/TCP, 443/TCP, 1936/TCP
+    Host Ports:     80/TCP, 443/TCP, 1936/TCP
+    State:          Running
+      Started:      Wed, 14 Nov 2018 14:31:54 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    2
+      Started:      Wed, 14 Nov 2018 08:30:33 +0530
+      Finished:     Wed, 14 Nov 2018 14:31:53 +0530
+    Ready:          True
+    Restart Count:  4
+    Requests:
+      cpu:      100m
+      memory:   256Mi
+    Liveness:   http-get http://localhost:1936/healthz delay=10s timeout=1s period=10s #success=1 #failure=3
+    Readiness:  http-get http://localhost:1936/healthz/ready delay=10s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      DEFAULT_CERTIFICATE_DIR:                /etc/pki/tls/private
+      DEFAULT_CERTIFICATE_PATH:               /etc/pki/tls/private/tls.crt
+      ROUTER_CIPHERS:                         
+      ROUTER_EXTERNAL_HOST_HOSTNAME:          
+      ROUTER_EXTERNAL_HOST_HTTPS_VSERVER:     
+      ROUTER_EXTERNAL_HOST_HTTP_VSERVER:      
+      ROUTER_EXTERNAL_HOST_INSECURE:          false
+      ROUTER_EXTERNAL_HOST_INTERNAL_ADDRESS:  
+      ROUTER_EXTERNAL_HOST_PARTITION_PATH:    
+      ROUTER_EXTERNAL_HOST_PASSWORD:          
+      ROUTER_EXTERNAL_HOST_PRIVKEY:           /etc/secret-volume/router.pem
+      ROUTER_EXTERNAL_HOST_USERNAME:          
+      ROUTER_EXTERNAL_HOST_VXLAN_GW_CIDR:     
+      ROUTER_LISTEN_ADDR:                     0.0.0.0:1936
+      ROUTER_METRICS_TLS_CERT_FILE:           /etc/pki/tls/metrics/tls.crt
+      ROUTER_METRICS_TLS_KEY_FILE:            /etc/pki/tls/metrics/tls.key
+      ROUTER_METRICS_TYPE:                    haproxy
+      ROUTER_SERVICE_HTTPS_PORT:              443
+      ROUTER_SERVICE_HTTP_PORT:               80
+      ROUTER_SERVICE_NAME:                    router
+      ROUTER_SERVICE_NAMESPACE:               default
+      ROUTER_SUBDOMAIN:                       
+      ROUTER_THREADS:                         0
+      STATS_PASSWORD:                         jVW9i89jkr
+      STATS_PORT:                             1936
+      STATS_USERNAME:                         admin
+      EXTENDED_VALIDATION:                    true
+    Mounts:
+      /etc/pki/tls/metrics/ from metrics-server-certificate (ro)
+      /etc/pki/tls/private from server-certificate (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from router-token-xqjhz (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  metrics-server-certificate:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  router-metrics-tls
+    Optional:    false
+  server-certificate:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  router-certs
+    Optional:    false
+  router-token-xqjhz:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  router-token-xqjhz
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  node-role.kubernetes.io/infra=true
+Tolerations:     node.kubernetes.io/memory-pressure:NoSchedule
+Events:          <none>

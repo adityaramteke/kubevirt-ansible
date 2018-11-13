@@ -1,0 +1,180 @@
+Name:               sdn-t8nxz
+Namespace:          openshift-sdn
+Priority:           2000001000
+PriorityClassName:  system-node-critical
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 12:52:01 +0530
+Labels:             app=sdn
+                    component=network
+                    controller-revision-hash=2278339656
+                    openshift.io/component=network
+                    pod-template-generation=2
+                    type=infra
+Annotations:        openshift.io/scc=privileged
+                    scheduler.alpha.kubernetes.io/critical-pod=
+Status:             Running
+IP:                 172.16.0.18
+Controlled By:      DaemonSet/sdn
+Containers:
+  sdn:
+    Container ID:  cri-o://66526249fde217f6375ffbcab321dff09f9b9186d07c5e20ea753940d8c4cbe6
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-node:v3.11.16
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-node@sha256:41c9a18ae3d6c92ad687d34ea5ea08c41461bc33cf40e564cef8ba7fb5d35d8d
+    Port:          10256/TCP
+    Host Port:     10256/TCP
+    Command:
+      /bin/bash
+      -c
+      #!/bin/bash
+set -euo pipefail
+
+# if another process is listening on the cni-server socket, wait until it exits
+trap 'kill $(jobs -p); exit 0' TERM
+retries=0
+while true; do
+  if echo 'test' | socat - UNIX-CONNECT:/var/run/openshift-sdn/cni-server.sock >/dev/null; then
+    echo "warning: Another process is currently listening on the CNI socket, waiting 15s ..." 2>&1
+    sleep 15 & wait
+    (( retries += 1 ))
+  else
+    break
+  fi
+  if [[ "${retries}" -gt 40 ]]; then
+    echo "error: Another process is currently listening on the CNI socket, exiting" 2>&1
+    exit 1
+  fi
+done
+# if the node config doesn't exist yet, wait until it does
+retries=0
+while true; do
+  if [[ ! -f /etc/origin/node/node-config.yaml ]]; then
+    echo "warning: Cannot find existing node-config.yaml, waiting 15s ..." 2>&1
+    sleep 15 & wait
+    (( retries += 1 ))
+  else
+    break
+  fi
+  if [[ "${retries}" -gt 40 ]]; then
+    echo "error: No existing node-config.yaml, exiting" 2>&1
+    exit 1
+  fi
+done
+
+# Take over network functions on the node
+rm -Rf /etc/cni/net.d/80-openshift-network.conf
+cp -Rf /opt/cni/bin/* /host/opt/cni/bin/
+
+if [[ -f /etc/sysconfig/origin-node ]]; then
+  set -o allexport
+  source /etc/sysconfig/origin-node
+fi
+
+# use either the bootstrapped node kubeconfig or the static configuration
+file=/etc/origin/node/node.kubeconfig
+if [[ ! -f "${file}" ]]; then
+  # use the static node config if it exists
+  # TODO: remove when static node configuration is no longer supported
+  for f in /etc/origin/node/system*.kubeconfig; do
+    echo "info: Using ${f} for node configuration" 1>&2
+    file="${f}"
+    break
+  done
+fi
+# Use the same config as the node, but with the service account token
+oc config "--config=${file}" view --flatten > /tmp/kubeconfig
+oc config --config=/tmp/kubeconfig set-credentials sa "--token=$( cat /var/run/secrets/kubernetes.io/serviceaccount/token )"
+oc config --config=/tmp/kubeconfig set-context "$( oc config --config=/tmp/kubeconfig current-context )" --user=sa
+# Launch the network process
+if which openshift-sdn; then
+  exec openshift-sdn --config=/etc/origin/node/node-config.yaml --kubeconfig=/tmp/kubeconfig --loglevel=${DEBUG_LOGLEVEL:-2}
+fi
+exec openshift start network --config=/etc/origin/node/node-config.yaml --kubeconfig=/tmp/kubeconfig --loglevel=${DEBUG_LOGLEVEL:-2}
+
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:09:48 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:23:53 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:47 +0530
+    Ready:          True
+    Restart Count:  2
+    Requests:
+      cpu:     100m
+      memory:  200Mi
+    Environment:
+      OPENSHIFT_DNS_DOMAIN:  cluster.local
+    Mounts:
+      /etc/cni/net.d from host-etc-cni-netd (rw)
+      /etc/origin/node/ from host-config (ro)
+      /etc/sysconfig/origin-node from host-sysconfig-node (ro)
+      /host/opt/cni/bin from host-opt-cni-bin (rw)
+      /var/lib/cni/networks/openshift-sdn from host-var-lib-cni-networks-openshift-sdn (rw)
+      /var/run from host-var-run (rw)
+      /var/run/dbus/ from host-var-run-dbus (ro)
+      /var/run/kubernetes/ from host-var-run-kubernetes (ro)
+      /var/run/openshift-sdn from host-var-run-openshift-sdn (rw)
+      /var/run/openvswitch/ from host-var-run-ovs (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from sdn-token-lgnbx (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  host-config:
+    Type:          HostPath (bare host directory volume)
+    Path:          /etc/origin/node
+    HostPathType:  
+  host-sysconfig-node:
+    Type:          HostPath (bare host directory volume)
+    Path:          /etc/sysconfig/origin-node
+    HostPathType:  
+  host-modules:
+    Type:          HostPath (bare host directory volume)
+    Path:          /lib/modules
+    HostPathType:  
+  host-var-run:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run
+    HostPathType:  
+  host-var-run-dbus:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/dbus
+    HostPathType:  
+  host-var-run-ovs:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/openvswitch
+    HostPathType:  
+  host-var-run-kubernetes:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/kubernetes
+    HostPathType:  
+  host-var-run-openshift-sdn:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/openshift-sdn
+    HostPathType:  
+  host-opt-cni-bin:
+    Type:          HostPath (bare host directory volume)
+    Path:          /opt/cni/bin
+    HostPathType:  
+  host-etc-cni-netd:
+    Type:          HostPath (bare host directory volume)
+    Path:          /etc/cni/net.d
+    HostPathType:  
+  host-var-lib-cni-networks-openshift-sdn:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/cni/networks/openshift-sdn
+    HostPathType:  
+  sdn-token-lgnbx:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  sdn-token-lgnbx
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/disk-pressure:NoSchedule
+                 node.kubernetes.io/memory-pressure:NoSchedule
+                 node.kubernetes.io/not-ready:NoExecute
+                 node.kubernetes.io/unreachable:NoExecute
+Events:          <none>

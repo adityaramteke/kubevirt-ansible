@@ -1,0 +1,67 @@
+Name:               asb-2-vxdn4
+Namespace:          openshift-ansible-service-broker
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:15:26 +0530
+Labels:             app=openshift-ansible-service-broker
+                    deployment=asb-2
+                    deploymentconfig=asb
+                    service=asb
+Annotations:        openshift.io/deployment-config.latest-version=2
+                    openshift.io/deployment-config.name=asb
+                    openshift.io/deployment.name=asb-2
+                    openshift.io/scc=restricted
+Status:             Running
+IP:                 10.128.0.86
+Controlled By:      ReplicationController/asb-2
+Containers:
+  asb:
+    Container ID:   cri-o://fd443cd80a757ad9e32145062b99013f1dd5bafa124114a724c31b5fe89bdb74
+    Image:          brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-ansible-service-broker:v3.11.16
+    Image ID:       brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-ansible-service-broker@sha256:c456d9677aa4ea0d33a8c0176a876f953f4636b01b7bdf1bbed50a542af3d572
+    Port:           1338/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Wed, 14 Nov 2018 14:31:47 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    2
+      Started:      Sun, 11 Nov 2018 04:10:04 +0530
+      Finished:     Wed, 14 Nov 2018 14:31:46 +0530
+    Ready:          True
+    Restart Count:  3
+    Liveness:       http-get https://:1338/healthz delay=15s timeout=1s period=10s #success=1 #failure=3
+    Readiness:      http-get https://:1338/healthz delay=15s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      BROKER_CONFIG:  /etc/ansible-service-broker/config.yaml
+      HTTP_PROXY:     
+      HTTPS_PROXY:    
+      NO_PROXY:       
+    Mounts:
+      /etc/ansible-service-broker from config-volume (rw)
+      /etc/tls/private from asb-tls (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from asb-token-w2wkm (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  config-volume:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      broker-config
+    Optional:  false
+  asb-tls:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  asb-tls
+    Optional:    false
+  asb-token-w2wkm:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  asb-token-w2wkm
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  node-role.kubernetes.io/infra=true
+Tolerations:     <none>
+Events:          <none>

@@ -1,0 +1,118 @@
+Name:               glusterfs-storage-w2l4s
+Namespace:          glusterfs
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-node2.example.com/172.16.0.14
+Start Time:         Fri, 09 Nov 2018 12:55:59 +0530
+Labels:             controller-revision-hash=572987226
+                    glusterfs=storage-pod
+                    glusterfs-node=pod
+                    pod-template-generation=1
+Annotations:        openshift.io/scc=privileged
+Status:             Running
+IP:                 172.16.0.14
+Controlled By:      DaemonSet/glusterfs-storage
+Containers:
+  glusterfs:
+    Container ID:   cri-o://7613a95270f27da8846a76fd94ce9e66fe6daedaf2a41dba8144757fd152aabc
+    Image:          brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/ocs/rhgs-server-rhel7:3.11.0-2
+    Image ID:       brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/ocs/rhgs-server-rhel7@sha256:20c03c07a93da4b8b9dde246f2a194e18e8b682ceeba114d587042b2cc04e694
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:09:42 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:23:41 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:41 +0530
+    Ready:          True
+    Restart Count:  2
+    Requests:
+      cpu:      100m
+      memory:   100Mi
+    Liveness:   exec [/bin/bash -c systemctl status glusterd.service] delay=40s timeout=3s period=25s #success=1 #failure=50
+    Readiness:  exec [/bin/bash -c systemctl status glusterd.service] delay=40s timeout=3s period=25s #success=1 #failure=50
+    Environment:
+      GB_GLFS_LRU_COUNT:  15
+      TCMU_LOGDIR:        /var/log/glusterfs/gluster-block
+      GB_LOGDIR:          /var/log/glusterfs/gluster-block
+    Mounts:
+      /dev from glusterfs-dev (rw)
+      /etc/glusterfs from glusterfs-etc (rw)
+      /etc/ssl from glusterfs-ssl (ro)
+      /etc/target from glusterfs-target (rw)
+      /run from glusterfs-run (rw)
+      /run/lvm from glusterfs-lvm (rw)
+      /sys/fs/cgroup from glusterfs-cgroup (ro)
+      /usr/lib/modules from kernel-modules (ro)
+      /var/lib/glusterd from glusterfs-config (rw)
+      /var/lib/heketi from glusterfs-heketi (rw)
+      /var/lib/misc/glusterfsd from glusterfs-misc (rw)
+      /var/log/glusterfs from glusterfs-logs (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-tvgdl (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  glusterfs-heketi:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/heketi
+    HostPathType:  
+  glusterfs-run:
+    Type:    EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:  
+  glusterfs-lvm:
+    Type:          HostPath (bare host directory volume)
+    Path:          /run/lvm
+    HostPathType:  
+  glusterfs-etc:
+    Type:          HostPath (bare host directory volume)
+    Path:          /etc/glusterfs
+    HostPathType:  
+  glusterfs-logs:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/log/glusterfs
+    HostPathType:  
+  glusterfs-config:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/glusterd
+    HostPathType:  
+  glusterfs-dev:
+    Type:          HostPath (bare host directory volume)
+    Path:          /dev
+    HostPathType:  
+  glusterfs-misc:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/lib/misc/glusterfsd
+    HostPathType:  
+  glusterfs-cgroup:
+    Type:          HostPath (bare host directory volume)
+    Path:          /sys/fs/cgroup
+    HostPathType:  
+  glusterfs-ssl:
+    Type:          HostPath (bare host directory volume)
+    Path:          /etc/ssl
+    HostPathType:  
+  kernel-modules:
+    Type:          HostPath (bare host directory volume)
+    Path:          /usr/lib/modules
+    HostPathType:  
+  glusterfs-target:
+    Type:          HostPath (bare host directory volume)
+    Path:          /etc/target
+    HostPathType:  
+  default-token-tvgdl:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-tvgdl
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  glusterfs=storage-host
+Tolerations:     node.kubernetes.io/disk-pressure:NoSchedule
+                 node.kubernetes.io/memory-pressure:NoSchedule
+                 node.kubernetes.io/not-ready:NoExecute
+                 node.kubernetes.io/unreachable:NoExecute
+Events:          <none>

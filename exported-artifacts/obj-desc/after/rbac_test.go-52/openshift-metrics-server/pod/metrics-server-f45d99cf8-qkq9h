@@ -1,0 +1,59 @@
+Name:               metrics-server-f45d99cf8-qkq9h
+Namespace:          openshift-metrics-server
+Priority:           2000000000
+PriorityClassName:  system-cluster-critical
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Sat, 10 Nov 2018 21:50:44 +0530
+Labels:             k8s-app=metrics-server
+                    pod-template-hash=901855794
+Annotations:        openshift.io/scc=restricted
+                    scheduler.alpha.kubernetes.io/critical-pod=
+Status:             Running
+IP:                 10.128.0.98
+Controlled By:      ReplicaSet/metrics-server-f45d99cf8
+Containers:
+  metrics-server:
+    Container ID:  cri-o://6ff9bbdf8ea98e84432cb232685e5a0feb2625cc7e520608d9e5e690fa544dd9
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-metrics-server:v3.11.16
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-metrics-server@sha256:87c8395455dfab83df2d048e0b4eead1c7e4337a832a1ef55c32116435d0b2c4
+    Port:          8443/TCP
+    Host Port:     0/TCP
+    Command:
+      /usr/bin/metrics-server
+      --source=kubernetes.summary_api:?useServiceAccount=true&kubeletHttps=true&kubeletPort=10250
+      --tls-cert-file=/certs/tls.crt
+      --tls-private-key-file=/certs/tls.key
+      --metric_resolution=30s
+      --secure-port=8443
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:09 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:27:03 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:52 +0530
+    Ready:          True
+    Restart Count:  1
+    Environment:    <none>
+    Mounts:
+      /certs from metrics-server-certs (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from metrics-server-token-5r964 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  metrics-server-certs:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  metrics-server-certs
+    Optional:    false
+  metrics-server-token-5r964:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  metrics-server-token-5r964
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     <none>
+Events:          <none>

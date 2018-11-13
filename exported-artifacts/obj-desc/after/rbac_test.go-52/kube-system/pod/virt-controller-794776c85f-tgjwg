@@ -1,0 +1,62 @@
+Name:               virt-controller-794776c85f-tgjwg
+Namespace:          kube-system
+Priority:           2000000000
+PriorityClassName:  system-cluster-critical
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:15:29 +0530
+Labels:             kubevirt.io=virt-controller
+                    pod-template-hash=3503327419
+                    prometheus.kubevirt.io=
+Annotations:        scheduler.alpha.kubernetes.io/critical-pod=
+                    scheduler.alpha.kubernetes.io/tolerations=[
+  {
+    "key": "CriticalAddonsOnly",
+    "operator": "Exists"
+  }
+]
+
+Status:         Running
+IP:             10.128.0.91
+Controlled By:  ReplicaSet/virt-controller-794776c85f
+Containers:
+  virt-controller:
+    Container ID:  cri-o://bb5b1996cdb1a3bb7cce57698fdddd8f8e3bbffcef0e3c49a3ad03386067b848
+    Image:         cnv-tech-preview/virt-controller:v1.3.0
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/cnv-tech-preview/virt-controller@sha256:10452a3216c8a85404ee42a16dbe46f85359213ba97ad0078b057d2e43903144
+    Port:          8443/TCP
+    Host Port:     0/TCP
+    Command:
+      virt-controller
+      --launcher-image
+      cnv-tech-preview/virt-launcher:v1.3.0
+      --port
+      8443
+    State:          Running
+      Started:      Wed, 14 Nov 2018 14:31:53 +0530
+    Last State:     Terminated
+      Reason:       OOMKilled
+      Exit Code:    1
+      Started:      Sun, 11 Nov 2018 04:10:07 +0530
+      Finished:     Wed, 14 Nov 2018 14:31:32 +0530
+    Ready:          True
+    Restart Count:  3
+    Liveness:       http-get https://:8443/healthz delay=15s timeout=10s period=10s #success=1 #failure=8
+    Readiness:      http-get https://:8443/leader delay=15s timeout=10s period=10s #success=1 #failure=3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kubevirt-controller-token-477hn (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kubevirt-controller-token-477hn:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  kubevirt-controller-token-477hn
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     <none>
+Events:          <none>

@@ -1,0 +1,16 @@
+Name:          e2e-pvc
+Namespace:     default
+StorageClass:  glusterfs-storage
+Status:        Bound
+Volume:        pvc-2fe8fcaa-e66d-11e8-ba1b-fa163e449069
+Labels:        app=containerized-data-importer
+Annotations:   cdi.kubevirt.io/storage.import.endpoint=https://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img
+               cdi.kubevirt.io/storage.import.importPodName=importer-e2e-pvc-8bscx
+               cdi.kubevirt.io/storage.pod.phase=Succeeded
+               pv.kubernetes.io/bind-completed=yes
+               pv.kubernetes.io/bound-by-controller=yes
+               volume.beta.kubernetes.io/storage-provisioner=kubernetes.io/glusterfs
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      1Gi
+Access Modes:  RWO
+Events:        <none>

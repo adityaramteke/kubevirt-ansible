@@ -1,0 +1,191 @@
+Name:               prometheus-k8s-1
+Namespace:          openshift-monitoring
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:08:45 +0530
+Labels:             app=prometheus
+                    controller-revision-hash=prometheus-k8s-77d688cbc8
+                    prometheus=k8s
+                    statefulset.kubernetes.io/pod-name=prometheus-k8s-1
+Annotations:        openshift.io/scc=restricted
+Status:             Running
+IP:                 10.128.0.97
+Controlled By:      StatefulSet/prometheus-k8s
+Containers:
+  prometheus:
+    Container ID:  cri-o://4838916d95ef96f1580a74cbb27cde6e2b047a1254a50acf30629c9b95005e6f
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/prometheus:v3.11
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/prometheus@sha256:018c45ba2dbc4a099fc569f76bb43e6f14c3c95e105f8db18c31720cd3960b6f
+    Port:          <none>
+    Host Port:     <none>
+    Args:
+      --web.console.templates=/etc/prometheus/consoles
+      --web.console.libraries=/etc/prometheus/console_libraries
+      --config.file=/etc/prometheus/config_out/prometheus.env.yaml
+      --storage.tsdb.path=/prometheus
+      --storage.tsdb.retention=15d
+      --web.enable-lifecycle
+      --storage.tsdb.no-lockfile
+      --web.external-url=https://prometheus-k8s-openshift-monitoring.cloudapps.example.com/
+      --web.route-prefix=/
+      --web.listen-address=127.0.0.1:9090
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:06 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:02 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:54 +0530
+    Ready:          True
+    Restart Count:  3
+    Environment:    <none>
+    Mounts:
+      /etc/prometheus/config_out from config-out (ro)
+      /etc/prometheus/rules/prometheus-k8s-rulefiles-0 from prometheus-k8s-rulefiles-0 (rw)
+      /etc/prometheus/secrets/prometheus-k8s-htpasswd from secret-prometheus-k8s-htpasswd (ro)
+      /etc/prometheus/secrets/prometheus-k8s-proxy from secret-prometheus-k8s-proxy (ro)
+      /etc/prometheus/secrets/prometheus-k8s-tls from secret-prometheus-k8s-tls (ro)
+      /prometheus from prometheus-k8s-db (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from prometheus-k8s-token-c8qk8 (ro)
+  prometheus-config-reloader:
+    Container ID:  cri-o://1827ee2c08918850ee299d70b6c2668f995250aec380878d461f119a486c627b
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-prometheus-config-reloader:v3.11
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-prometheus-config-reloader@sha256:3429f288867bcedc7a1b6562fa9d80aaab2056471a2372b76bff98064b3b55f2
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/prometheus-config-reloader
+    Args:
+      --log-format=logfmt
+      --reload-url=http://localhost:9090/-/reload
+      --config-file=/etc/prometheus/config/prometheus.yaml
+      --config-envsubst-file=/etc/prometheus/config_out/prometheus.env.yaml
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:09 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:08 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:54 +0530
+    Ready:          True
+    Restart Count:  2
+    Limits:
+      cpu:     10m
+      memory:  50Mi
+    Requests:
+      cpu:     10m
+      memory:  50Mi
+    Environment:
+      POD_NAME:  prometheus-k8s-1 (v1:metadata.name)
+    Mounts:
+      /etc/prometheus/config from config (rw)
+      /etc/prometheus/config_out from config-out (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from prometheus-k8s-token-c8qk8 (ro)
+  prometheus-proxy:
+    Container ID:  cri-o://2975d5eff81d011ed545e8a11217ba1daa9ab8c6459e1ca3ff1ef288b9fed766
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/oauth-proxy:v3.11
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/oauth-proxy@sha256:a6f99ec47411e351b21f3d0d83803ed80fca8aa503ffb7b0bf67553cd75e07d5
+    Port:          9091/TCP
+    Host Port:     0/TCP
+    Args:
+      -provider=openshift
+      -https-address=:9091
+      -http-address=
+      -email-domain=*
+      -upstream=http://localhost:9090
+      -htpasswd-file=/etc/proxy/htpasswd/auth
+      -openshift-service-account=prometheus-k8s
+      -openshift-sar={"resource": "namespaces", "verb": "get"}
+      -openshift-delegate-urls={"/": {"resource": "namespaces", "verb": "get"}}
+      -tls-cert=/etc/tls/private/tls.crt
+      -tls-key=/etc/tls/private/tls.key
+      -client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
+      -cookie-secret-file=/etc/proxy/secrets/session_secret
+      -openshift-ca=/etc/pki/tls/cert.pem
+      -openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      -skip-auth-regex=^/metrics
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:13 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:11 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:54 +0530
+    Ready:          True
+    Restart Count:  2
+    Environment:    <none>
+    Mounts:
+      /etc/proxy/htpasswd from secret-prometheus-k8s-htpasswd (rw)
+      /etc/proxy/secrets from secret-prometheus-k8s-proxy (rw)
+      /etc/tls/private from secret-prometheus-k8s-tls (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from prometheus-k8s-token-c8qk8 (ro)
+  rules-configmap-reloader:
+    Container ID:  cri-o://9687a0a386d7af6c326aa0aaf1ff7f6c45720170ad319c7cbf650eec0748bc07
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-configmap-reloader:v3.11
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-configmap-reloader@sha256:93b9ec173e1a8e5252564e36c1a6c2e96a705571d8a15e8f8c471bda6995d96c
+    Port:          <none>
+    Host Port:     <none>
+    Args:
+      --webhook-url=http://localhost:9090/-/reload
+      --volume-dir=/etc/prometheus/rules/prometheus-k8s-rulefiles-0
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:15 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:16 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:54 +0530
+    Ready:          True
+    Restart Count:  2
+    Limits:
+      cpu:     5m
+      memory:  10Mi
+    Requests:
+      cpu:        5m
+      memory:     10Mi
+    Environment:  <none>
+    Mounts:
+      /etc/prometheus/rules/prometheus-k8s-rulefiles-0 from prometheus-k8s-rulefiles-0 (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from prometheus-k8s-token-c8qk8 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  config:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  prometheus-k8s
+    Optional:    false
+  config-out:
+    Type:    EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:  
+  prometheus-k8s-rulefiles-0:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      prometheus-k8s-rulefiles-0
+    Optional:  false
+  secret-prometheus-k8s-tls:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  prometheus-k8s-tls
+    Optional:    false
+  secret-prometheus-k8s-proxy:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  prometheus-k8s-proxy
+    Optional:    false
+  secret-prometheus-k8s-htpasswd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  prometheus-k8s-htpasswd
+    Optional:    false
+  prometheus-k8s-db:
+    Type:    EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:  
+  prometheus-k8s-token-c8qk8:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  prometheus-k8s-token-c8qk8
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  node-role.kubernetes.io/infra=true
+Tolerations:     node.kubernetes.io/memory-pressure:NoSchedule
+Events:          <none>

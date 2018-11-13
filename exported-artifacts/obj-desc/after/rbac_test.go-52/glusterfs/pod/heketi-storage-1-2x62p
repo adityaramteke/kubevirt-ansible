@@ -1,0 +1,71 @@
+Name:               heketi-storage-1-2x62p
+Namespace:          glusterfs
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Sat, 10 Nov 2018 21:50:54 +0530
+Labels:             deployment=heketi-storage-1
+                    deploymentconfig=heketi-storage
+                    glusterfs=heketi-storage-pod
+                    heketi=storage-pod
+Annotations:        openshift.io/deployment-config.latest-version=1
+                    openshift.io/deployment-config.name=heketi-storage
+                    openshift.io/deployment.name=heketi-storage-1
+                    openshift.io/scc=privileged
+Status:             Running
+IP:                 10.128.0.106
+Controlled By:      ReplicationController/heketi-storage-1
+Containers:
+  heketi:
+    Container ID:   cri-o://3c9056bbd167cfa6202e9c1193200bedb4bdab239326136c9a7b5c37b41274a8
+    Image:          brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/ocs/rhgs-volmanager-rhel7:3.11.0-3
+    Image ID:       brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/ocs/rhgs-volmanager-rhel7@sha256:c3dc92d0ddae70fe2acc18f5a3034e3b737a4d92ecdad9bd7ab38b30628b7dc6
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Wed, 14 Nov 2018 14:32:25 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    137
+      Started:      Sun, 11 Nov 2018 04:10:48 +0530
+      Finished:     Wed, 14 Nov 2018 14:32:24 +0530
+    Ready:          True
+    Restart Count:  2
+    Liveness:       http-get http://:8080/hello delay=30s timeout=3s period=10s #success=1 #failure=3
+    Readiness:      http-get http://:8080/hello delay=3s timeout=3s period=10s #success=1 #failure=3
+    Environment:
+      HEKETI_USER_KEY:                 UvTBOYUtZF8Vp7thvkmg3mwi2PgHCvlRUPWOAoUTZms=
+      HEKETI_ADMIN_KEY:                njem03V/l3nP25u0SOfF1j6WEI3dO+fEOBOHqScp6vY=
+      HEKETI_EXECUTOR:                 kubernetes
+      HEKETI_FSTAB:                    /var/lib/heketi/fstab
+      HEKETI_SNAPSHOT_LIMIT:           14
+      HEKETI_KUBE_GLUSTER_DAEMONSET:   1
+      HEKETI_IGNORE_STALE_OPERATIONS:  true
+    Mounts:
+      /etc/heketi from config (rw)
+      /var/lib/heketi from db (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from heketi-storage-service-account-token-r4gwh (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  db:
+    Type:           Glusterfs (a Glusterfs mount on the host that shares a pod's lifetime)
+    EndpointsName:  heketi-db-storage-endpoints
+    Path:           heketidbstorage
+    ReadOnly:       false
+  config:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  heketi-storage-config-secret
+    Optional:    false
+  heketi-storage-service-account-token-r4gwh:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  heketi-storage-service-account-token-r4gwh
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     <none>
+Events:          <none>

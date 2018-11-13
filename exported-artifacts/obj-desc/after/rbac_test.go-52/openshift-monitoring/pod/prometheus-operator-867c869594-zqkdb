@@ -1,0 +1,52 @@
+Name:               prometheus-operator-867c869594-zqkdb
+Namespace:          openshift-monitoring
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:06:39 +0530
+Labels:             k8s-app=prometheus-operator
+                    pod-template-hash=4237425150
+Annotations:        openshift.io/scc=restricted
+Status:             Running
+IP:                 10.128.0.85
+Controlled By:      ReplicaSet/prometheus-operator-867c869594
+Containers:
+  prometheus-operator:
+    Container ID:  cri-o://332f0d14d7f7e7f014888811cd7821a48e968c7e85cd833fad8d62ac798e2452
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-prometheus-operator:v3.11
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-prometheus-operator@sha256:6193b0a317ac0b40a830c852cb7a033f0dc1ef698cd28b6e0eb3fa161285b332
+    Port:          8080/TCP
+    Host Port:     0/TCP
+    Args:
+      --kubelet-service=kube-system/kubelet
+      --logtostderr=true
+      --config-reloader-image=brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-configmap-reloader:v3.11
+      --prometheus-config-reloader=brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-prometheus-config-reloader:v3.11
+      --namespace=openshift-monitoring
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:04 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:37 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:46 +0530
+    Ready:          True
+    Restart Count:  3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from prometheus-operator-token-dd27t (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  prometheus-operator-token-dd27t:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  prometheus-operator-token-dd27t
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  node-role.kubernetes.io/infra=true
+Tolerations:     <none>
+Events:          <none>

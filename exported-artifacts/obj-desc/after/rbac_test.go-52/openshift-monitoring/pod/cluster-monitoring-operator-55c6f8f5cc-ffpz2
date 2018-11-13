@@ -1,0 +1,67 @@
+Name:               cluster-monitoring-operator-55c6f8f5cc-ffpz2
+Namespace:          openshift-monitoring
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:06:06 +0530
+Labels:             app=cluster-monitoring-operator
+                    pod-template-hash=1172949177
+Annotations:        openshift.io/scc=restricted
+Status:             Running
+IP:                 10.128.0.76
+Controlled By:      ReplicaSet/cluster-monitoring-operator-55c6f8f5cc
+Containers:
+  cluster-monitoring-operator:
+    Container ID:  cri-o://2ed87bd0b20232a77d437435de5cc72b658942d18e8b71ff02ca0547b070077c
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-cluster-monitoring-operator:v3.11.16
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-cluster-monitoring-operator@sha256:5c9cfb8fc1d40d8a785a79d64ec472f3e8504ada2619b452d05f9659f463d22c
+    Port:          8080/TCP
+    Host Port:     0/TCP
+    Args:
+      -namespace=openshift-monitoring
+      -configmap=cluster-monitoring-config
+      -logtostderr=true
+      -v=4
+      -tags=prometheus-operator=v3.11
+      -tags=prometheus-config-reloader=v3.11
+      -tags=config-reloader=v3.11
+      -tags=prometheus=v3.11
+      -tags=alertmanager=v3.11
+      -tags=grafana=v3.11
+      -tags=oauth-proxy=v3.11
+      -tags=node-exporter=v3.11
+      -tags=kube-state-metrics=v3.11
+      -tags=kube-rbac-proxy=v3.11
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:09:58 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:19 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:46 +0530
+    Ready:          True
+    Restart Count:  2
+    Limits:
+      cpu:     20m
+      memory:  50Mi
+    Requests:
+      cpu:        20m
+      memory:     50Mi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from cluster-monitoring-operator-token-p24q7 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  cluster-monitoring-operator-token-p24q7:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  cluster-monitoring-operator-token-p24q7
+    Optional:    false
+QoS Class:       Guaranteed
+Node-Selectors:  node-role.kubernetes.io/infra=true
+Tolerations:     node.kubernetes.io/memory-pressure:NoSchedule
+Events:          <none>

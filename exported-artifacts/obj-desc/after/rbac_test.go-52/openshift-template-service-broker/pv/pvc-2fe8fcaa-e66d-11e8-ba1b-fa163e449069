@@ -1,0 +1,25 @@
+Name:            pvc-2fe8fcaa-e66d-11e8-ba1b-fa163e449069
+Labels:          <none>
+Annotations:     Description=Gluster-Internal: Dynamically provisioned PV
+                 gluster.kubernetes.io/heketi-volume-id=9f6258b16a82659418da988591d19ea3
+                 gluster.org/type=file
+                 kubernetes.io/createdby=heketi-dynamic-provisioner
+                 pv.beta.kubernetes.io/gid=2000
+                 pv.kubernetes.io/bound-by-controller=yes
+                 pv.kubernetes.io/provisioned-by=kubernetes.io/glusterfs
+                 volume.beta.kubernetes.io/mount-options=auto_unmount
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    glusterfs-storage
+Status:          Bound
+Claim:           default/e2e-pvc
+Reclaim Policy:  Delete
+Access Modes:    RWO
+Capacity:        1Gi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:           Glusterfs (a Glusterfs mount on the host that shares a pod's lifetime)
+    EndpointsName:  glusterfs-dynamic-e2e-pvc
+    Path:           vol_9f6258b16a82659418da988591d19ea3
+    ReadOnly:       false
+Events:             <none>

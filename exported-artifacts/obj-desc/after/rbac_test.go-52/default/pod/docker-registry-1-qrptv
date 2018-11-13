@@ -1,0 +1,72 @@
+Name:               docker-registry-1-qrptv
+Namespace:          default
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:05:39 +0530
+Labels:             deployment=docker-registry-1
+                    deploymentconfig=docker-registry
+                    docker-registry=default
+Annotations:        openshift.io/deployment-config.latest-version=1
+                    openshift.io/deployment-config.name=docker-registry
+                    openshift.io/deployment.name=docker-registry-1
+                    openshift.io/scc=restricted
+Status:             Running
+IP:                 10.128.0.104
+Controlled By:      ReplicationController/docker-registry-1
+Containers:
+  registry:
+    Container ID:   cri-o://00f8f65c78032dcecaff9640a63b4c67c64f572a15b3c462535a781d0583a046
+    Image:          brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-docker-registry:v3.11.16
+    Image ID:       brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-docker-registry@sha256:f317de6aee7d15b3a640b73d88e736337ba4b002e7f835222d4896033899baff
+    Port:           5000/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:08 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:04 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:46 +0530
+    Ready:          True
+    Restart Count:  2
+    Requests:
+      cpu:      100m
+      memory:   256Mi
+    Liveness:   http-get https://:5000/healthz delay=10s timeout=5s period=10s #success=1 #failure=3
+    Readiness:  http-get https://:5000/healthz delay=0s timeout=5s period=10s #success=1 #failure=3
+    Environment:
+      REGISTRY_HTTP_ADDR:                                     :5000
+      REGISTRY_HTTP_NET:                                      tcp
+      REGISTRY_HTTP_SECRET:                                   1gFEgLoC/Wou0uKJrxCiCMorJEK+FrcgJYv1jCBSh/k=
+      REGISTRY_MIDDLEWARE_REPOSITORY_OPENSHIFT_ENFORCEQUOTA:  false
+      OPENSHIFT_DEFAULT_REGISTRY:                             docker-registry.default.svc:5000
+      REGISTRY_HTTP_TLS_CERTIFICATE:                          /etc/secrets/registry.crt
+      REGISTRY_OPENSHIFT_SERVER_ADDR:                         docker-registry.default.svc:5000
+      REGISTRY_HTTP_TLS_KEY:                                  /etc/secrets/registry.key
+    Mounts:
+      /etc/secrets from registry-certificates (rw)
+      /registry from registry-storage (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from registry-token-fgvf2 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  registry-storage:
+    Type:    EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:  
+  registry-certificates:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  registry-certificates
+    Optional:    false
+  registry-token-fgvf2:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  registry-token-fgvf2
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  node-role.kubernetes.io/infra=true
+Tolerations:     node.kubernetes.io/memory-pressure:NoSchedule
+Events:          <none>

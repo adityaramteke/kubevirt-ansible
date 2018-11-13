@@ -1,0 +1,122 @@
+Name:               ovs-pqjdw
+Namespace:          openshift-sdn
+Priority:           2000001000
+PriorityClassName:  system-node-critical
+Node:               cnv-executor-aditya-node2.example.com/172.16.0.14
+Start Time:         Fri, 09 Nov 2018 12:52:38 +0530
+Labels:             app=ovs
+                    component=network
+                    controller-revision-hash=228965574
+                    openshift.io/component=network
+                    pod-template-generation=2
+                    type=infra
+Annotations:        openshift.io/scc=privileged
+                    scheduler.alpha.kubernetes.io/critical-pod=
+Status:             Running
+IP:                 172.16.0.14
+Controlled By:      DaemonSet/ovs
+Containers:
+  openvswitch:
+    Container ID:  cri-o://39ef5d014d44827dbd028ffc44e6cc28dc13ceb5f403255a8e1861fcfeeb9821
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-node:v3.11.16
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-node@sha256:41c9a18ae3d6c92ad687d34ea5ea08c41461bc33cf40e564cef8ba7fb5d35d8d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/bash
+      -c
+      #!/bin/bash
+set -euo pipefail
+
+# if another process is listening on the cni-server socket, wait until it exits
+trap 'kill $(jobs -p); exit 0' TERM
+retries=0
+while true; do
+  if /usr/share/openvswitch/scripts/ovs-ctl status &>/dev/null; then
+    echo "warning: Another process is currently managing OVS, waiting 15s ..." 2>&1
+    sleep 15 & wait
+    (( retries += 1 ))
+  else
+    break
+  fi
+  if [[ "${retries}" -gt 40 ]]; then
+    echo "error: Another process is currently managing OVS, exiting" 2>&1
+    exit 1
+  fi
+done
+
+# launch OVS
+function quit {
+    /usr/share/openvswitch/scripts/ovs-ctl stop
+    exit 0
+}
+trap quit SIGTERM
+/usr/share/openvswitch/scripts/ovs-ctl start --system-id=random
+
+# Restrict the number of pthreads ovs-vswitchd creates to reduce the
+# amount of RSS it uses on hosts with many cores
+# https://bugzilla.redhat.com/show_bug.cgi?id=1571379
+# https://bugzilla.redhat.com/show_bug.cgi?id=1572797
+if [[ `nproc` -gt 12 ]]; then
+    ovs-vsctl set Open_vSwitch . other_config:n-revalidator-threads=4
+    ovs-vsctl set Open_vSwitch . other_config:n-handler-threads=10
+fi
+while true; do sleep 5; done
+
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:09:43 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:23:41 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:42 +0530
+    Ready:          True
+    Restart Count:  2
+    Limits:
+      cpu:     200m
+      memory:  400Mi
+    Requests:
+      cpu:        100m
+      memory:     300Mi
+    Environment:  <none>
+    Mounts:
+      /etc/openvswitch from host-config-openvswitch (rw)
+      /lib/modules from host-modules (ro)
+      /run/openvswitch from host-run-ovs (rw)
+      /sys from host-sys (ro)
+      /var/run/openvswitch from host-run-ovs (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from sdn-token-lgnbx (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  host-modules:
+    Type:          HostPath (bare host directory volume)
+    Path:          /lib/modules
+    HostPathType:  
+  host-run-ovs:
+    Type:          HostPath (bare host directory volume)
+    Path:          /run/openvswitch
+    HostPathType:  
+  host-sys:
+    Type:          HostPath (bare host directory volume)
+    Path:          /sys
+    HostPathType:  
+  host-config-openvswitch:
+    Type:          HostPath (bare host directory volume)
+    Path:          /etc/origin/openvswitch
+    HostPathType:  
+  sdn-token-lgnbx:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  sdn-token-lgnbx
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/disk-pressure:NoSchedule
+                 node.kubernetes.io/memory-pressure:NoSchedule
+                 node.kubernetes.io/not-ready:NoExecute
+                 node.kubernetes.io/unreachable:NoExecute
+Events:          <none>

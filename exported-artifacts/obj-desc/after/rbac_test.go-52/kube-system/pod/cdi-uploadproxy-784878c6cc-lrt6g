@@ -1,0 +1,54 @@
+Name:               cdi-uploadproxy-784878c6cc-lrt6g
+Namespace:          kube-system
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Sat, 10 Nov 2018 21:50:54 +0530
+Labels:             cdi.kubevirt.io=cdi-uploadproxy
+                    pod-template-hash=3404347277
+Annotations:        <none>
+Status:             Running
+IP:                 10.128.0.83
+Controlled By:      ReplicaSet/cdi-uploadproxy-784878c6cc
+Containers:
+  cdi-uploadproxy:
+    Container ID:  cri-o://cbcfd16396683a0c0fd2173d3fa1d632db71f261ea94b25909b418e79e378c2c
+    Image:         cnv-tech-preview/virt-cdi-uploadproxy:v1.3.0
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/cnv-tech-preview/virt-cdi-uploadproxy@sha256:5a3eaac61b298430c253a533fd560a7ed7826b4c9760763ca7db2045a53494b0
+    Port:          <none>
+    Host Port:     <none>
+    Args:
+      -v=1
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:07 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:27:15 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:51 +0530
+    Ready:          True
+    Restart Count:  1
+    Environment:
+      APISERVER_PUBLIC_KEY:       <set to the key 'id_rsa.pub' in secret 'cdi-api-signing-key'>        Optional: false
+      UPLOAD_SERVER_CLIENT_KEY:   <set to the key 'tls.key' in secret 'cdi-upload-server-client-key'>  Optional: false
+      UPLOAD_SERVER_CLIENT_CERT:  <set to the key 'tls.crt' in secret 'cdi-upload-server-client-key'>  Optional: false
+      UPLOAD_SERVER_CA_CERT:      <set to the key 'ca.crt' in secret 'cdi-upload-server-client-key'>   Optional: false
+      SERVICE_TLS_KEY:            <set to the key 'tls.key' in secret 'cdi-upload-proxy-server-key'>   Optional: false
+      SERVICE_TLS_CERT:           <set to the key 'tls.crt' in secret 'cdi-upload-proxy-server-key'>   Optional: false
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-jbl86 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  default-token-jbl86:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-jbl86
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     <none>
+Events:          <none>

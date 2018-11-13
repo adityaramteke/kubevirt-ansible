@@ -1,0 +1,142 @@
+Name:               grafana-7967df4f-zst6j
+Namespace:          openshift-monitoring
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:07:35 +0530
+Labels:             app=grafana
+                    pod-template-hash=35238909
+Annotations:        openshift.io/scc=restricted
+Status:             Running
+IP:                 10.128.0.95
+Controlled By:      ReplicaSet/grafana-7967df4f
+Containers:
+  grafana:
+    Container ID:  cri-o://6af015be96a8e1e74b880820f85fd70159778553822d6dbf772cdddb5304f5d3
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/grafana:v3.11
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/grafana@sha256:d7e04f12ca6c61145cabafefb8da39f4a342ab5f2f0fb6817dba37cab97db152
+    Port:          3000/TCP
+    Host Port:     0/TCP
+    Args:
+      -config=/etc/grafana/grafana.ini
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:06 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:07 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:47 +0530
+    Ready:          True
+    Restart Count:  2
+    Limits:
+      cpu:     200m
+      memory:  200Mi
+    Requests:
+      cpu:        100m
+      memory:     100Mi
+    Environment:  <none>
+    Mounts:
+      /etc/grafana from grafana-config (rw)
+      /etc/grafana/provisioning/dashboards from grafana-dashboards (rw)
+      /etc/grafana/provisioning/datasources from grafana-datasources (rw)
+      /grafana-dashboard-definitions/0/k8s-cluster-rsrc-use from grafana-dashboard-k8s-cluster-rsrc-use (rw)
+      /grafana-dashboard-definitions/0/k8s-node-rsrc-use from grafana-dashboard-k8s-node-rsrc-use (rw)
+      /grafana-dashboard-definitions/0/k8s-resources-cluster from grafana-dashboard-k8s-resources-cluster (rw)
+      /grafana-dashboard-definitions/0/k8s-resources-namespace from grafana-dashboard-k8s-resources-namespace (rw)
+      /grafana-dashboard-definitions/0/k8s-resources-pod from grafana-dashboard-k8s-resources-pod (rw)
+      /var/lib/grafana from grafana-storage (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from grafana-token-n6c9n (ro)
+  grafana-proxy:
+    Container ID:  cri-o://1879f9e08d05321bf904d83afb690d6013e8f01693fbee576265af222f4a7e87
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/oauth-proxy:v3.11
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/oauth-proxy@sha256:a6f99ec47411e351b21f3d0d83803ed80fca8aa503ffb7b0bf67553cd75e07d5
+    Port:          3000/TCP
+    Host Port:     0/TCP
+    Args:
+      -provider=openshift
+      -https-address=:3000
+      -http-address=
+      -email-domain=*
+      -upstream=http://localhost:3001
+      -openshift-sar={"resource": "namespaces", "verb": "get"}
+      -openshift-delegate-urls={"/": {"resource": "namespaces", "verb": "get"}}
+      -tls-cert=/etc/tls/private/tls.crt
+      -tls-key=/etc/tls/private/tls.key
+      -client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
+      -cookie-secret-file=/etc/proxy/secrets/session_secret
+      -openshift-service-account=grafana
+      -openshift-ca=/etc/pki/tls/cert.pem
+      -openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      -skip-auth-regex=^/metrics
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:08 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:09 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:47 +0530
+    Ready:          True
+    Restart Count:  2
+    Environment:    <none>
+    Mounts:
+      /etc/proxy/secrets from secret-grafana-proxy (rw)
+      /etc/tls/private from secret-grafana-tls (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from grafana-token-n6c9n (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  grafana-storage:
+    Type:    EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:  
+  grafana-datasources:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  grafana-datasources
+    Optional:    false
+  grafana-dashboards:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      grafana-dashboards
+    Optional:  false
+  grafana-dashboard-k8s-cluster-rsrc-use:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      grafana-dashboard-k8s-cluster-rsrc-use
+    Optional:  false
+  grafana-dashboard-k8s-node-rsrc-use:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      grafana-dashboard-k8s-node-rsrc-use
+    Optional:  false
+  grafana-dashboard-k8s-resources-cluster:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      grafana-dashboard-k8s-resources-cluster
+    Optional:  false
+  grafana-dashboard-k8s-resources-namespace:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      grafana-dashboard-k8s-resources-namespace
+    Optional:  false
+  grafana-dashboard-k8s-resources-pod:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      grafana-dashboard-k8s-resources-pod
+    Optional:  false
+  grafana-config:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  grafana-config
+    Optional:    false
+  secret-grafana-tls:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  grafana-tls
+    Optional:    false
+  secret-grafana-proxy:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  grafana-proxy
+    Optional:    false
+  grafana-token-n6c9n:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  grafana-token-n6c9n
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  node-role.kubernetes.io/infra=true
+Tolerations:     node.kubernetes.io/memory-pressure:NoSchedule
+Events:          <none>

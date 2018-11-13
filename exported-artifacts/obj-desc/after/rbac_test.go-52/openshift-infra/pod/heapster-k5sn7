@@ -1,0 +1,90 @@
+Name:               heapster-k5sn7
+Namespace:          openshift-infra
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Sat, 10 Nov 2018 21:50:44 +0530
+Labels:             metrics-infra=heapster
+                    name=heapster
+Annotations:        <none>
+Status:             Running
+IP:                 10.128.0.87
+Controlled By:      ReplicationController/heapster
+Containers:
+  heapster:
+    Container ID:  cri-o://c020143da2bf4cf84d01c75b35f5656fc5c81326aabe66ab405972c6851cc8ed
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/metrics-heapster:v3.11.16
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/metrics-heapster@sha256:d0f0c8fbc2d0b2822138c0258ded9999f1f70bbefbc715dcb72221558c0a1aee
+    Port:          8082/TCP
+    Host Port:     0/TCP
+    Command:
+      heapster-wrapper.sh
+      --wrapper.allowed_users_file=/secrets/heapster.allowed-users
+      --source=kubernetes.summary_api:${MASTER_URL}?useServiceAccount=true&kubeletHttps=true&kubeletPort=10250
+      --tls_cert=/heapster-certs/tls.crt
+      --tls_key=/heapster-certs/tls.key
+      --tls_client_ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      --allowed_users=%allowed_users%
+      --metric_resolution=30s
+      --wrapper.username_file=/hawkular-account/hawkular-metrics.username
+      --wrapper.password_file=/hawkular-account/hawkular-metrics.password
+      --wrapper.endpoint_check=https://hawkular-metrics:443/hawkular/metrics/status
+      --sink=hawkular:https://hawkular-metrics:443?tenant=_system&labelToTenant=pod_namespace&labelNodeId=nodename&caCert=/hawkular-metrics-certs/tls.crt&user=%username%&pass=%password%&filter=label(container_name:^system.slice.*|^user.slice)&concurrencyLimit=5
+    State:          Running
+      Started:      Wed, 14 Nov 2018 18:18:25 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Wed, 14 Nov 2018 18:09:52 +0530
+      Finished:     Wed, 14 Nov 2018 18:18:13 +0530
+    Ready:          False
+    Restart Count:  593
+    Limits:
+      memory:  3750M
+    Requests:
+      memory:   937500k
+    Readiness:  exec [/opt/heapster-readiness.sh] delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      STARTUP_TIMEOUT:  500
+    Mounts:
+      /hawkular-account from hawkular-metrics-account (rw)
+      /hawkular-metrics-certs from hawkular-metrics-certs (rw)
+      /heapster-certs from heapster-certs (rw)
+      /secrets from heapster-secrets (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from heapster-token-smfnd (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  heapster-secrets:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  heapster-secrets
+    Optional:    false
+  heapster-certs:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  heapster-certs
+    Optional:    false
+  hawkular-metrics-certs:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  hawkular-metrics-certs
+    Optional:    false
+  hawkular-metrics-account:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  hawkular-metrics-account
+    Optional:    false
+  heapster-token-smfnd:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  heapster-token-smfnd
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/memory-pressure:NoSchedule
+Events:
+  Type     Reason     Age                  From                                              Message
+  ----     ------     ----                 ----                                              -------
+  Warning  BackOff    1h (x2261 over 3d)   kubelet, cnv-executor-aditya-master1.example.com  Back-off restarting failed container
+  Normal   Pulled     1h (x547 over 3d)    kubelet, cnv-executor-aditya-master1.example.com  Container image "brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/metrics-heapster:v3.11.16" already present on machine
+  Warning  Unhealthy  2m (x27836 over 3d)  kubelet, cnv-executor-aditya-master1.example.com  Readiness probe failed: The heapster process is not yet started, it is waiting for the Hawkular Metrics to start.

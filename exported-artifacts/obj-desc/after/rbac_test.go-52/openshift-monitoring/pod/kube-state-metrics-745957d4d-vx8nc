@@ -1,0 +1,119 @@
+Name:               kube-state-metrics-745957d4d-vx8nc
+Namespace:          openshift-monitoring
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:11:54 +0530
+Labels:             app=kube-state-metrics
+                    pod-template-hash=301513808
+Annotations:        openshift.io/scc=restricted
+Status:             Running
+IP:                 10.128.0.100
+Controlled By:      ReplicaSet/kube-state-metrics-745957d4d
+Containers:
+  kube-rbac-proxy-main:
+    Container ID:  cri-o://78ecfe1af3d9dba8b21866fa182f218eff4fcd7f9a82d5c2852ba1868d665142
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-kube-rbac-proxy:v3.11
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-kube-rbac-proxy@sha256:427ced08c45018c5eff3be2adca99b3a04ea9683d5a46fed4ed2c8555aeeb648
+    Port:          8443/TCP
+    Host Port:     0/TCP
+    Args:
+      --secure-listen-address=:8443
+      --upstream=http://127.0.0.1:8081/
+      --tls-cert-file=/etc/tls/private/tls.crt
+      --tls-private-key-file=/etc/tls/private/tls.key
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:08 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:08 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:53 +0530
+    Ready:          True
+    Restart Count:  2
+    Limits:
+      cpu:     20m
+      memory:  40Mi
+    Requests:
+      cpu:        10m
+      memory:     20Mi
+    Environment:  <none>
+    Mounts:
+      /etc/tls/private from kube-state-metrics-tls (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-state-metrics-token-zsl2l (ro)
+  kube-rbac-proxy-self:
+    Container ID:  cri-o://798ef965d33051ad18b9e62c5d24f1fa65599d024ae3f95f9725aa550a9be022
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-kube-rbac-proxy:v3.11
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-kube-rbac-proxy@sha256:427ced08c45018c5eff3be2adca99b3a04ea9683d5a46fed4ed2c8555aeeb648
+    Port:          9443/TCP
+    Host Port:     0/TCP
+    Args:
+      --secure-listen-address=:9443
+      --upstream=http://127.0.0.1:8082/
+      --tls-cert-file=/etc/tls/private/tls.crt
+      --tls-private-key-file=/etc/tls/private/tls.key
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:11 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:11 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:53 +0530
+    Ready:          True
+    Restart Count:  2
+    Limits:
+      cpu:     20m
+      memory:  40Mi
+    Requests:
+      cpu:        10m
+      memory:     20Mi
+    Environment:  <none>
+    Mounts:
+      /etc/tls/private from kube-state-metrics-tls (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-state-metrics-token-zsl2l (ro)
+  kube-state-metrics:
+    Container ID:  cri-o://a3700f67f7ab89daf84f516e9375d2defb1b75332ea368fa7226fbacb1808b3a
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-kube-state-metrics:v3.11
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-kube-state-metrics@sha256:1dd1d9a1d0185c46cb0fe9812fd5dc18ff98062c6fcdd78975efd2ecbc6c7431
+    Port:          <none>
+    Host Port:     <none>
+    Args:
+      --host=127.0.0.1
+      --port=8081
+      --telemetry-host=127.0.0.1
+      --telemetry-port=8082
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:12 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:13 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:53 +0530
+    Ready:          True
+    Restart Count:  2
+    Environment:    <none>
+    Mounts:
+      /tmp from volume-directive-shadow (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-state-metrics-token-zsl2l (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  volume-directive-shadow:
+    Type:    EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:  
+  kube-state-metrics-tls:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  kube-state-metrics-tls
+    Optional:    false
+  kube-state-metrics-token-zsl2l:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  kube-state-metrics-token-zsl2l
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  node-role.kubernetes.io/infra=true
+Tolerations:     node.kubernetes.io/memory-pressure:NoSchedule
+Events:          <none>

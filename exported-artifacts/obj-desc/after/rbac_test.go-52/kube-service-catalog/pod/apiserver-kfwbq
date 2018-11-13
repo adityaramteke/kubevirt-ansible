@@ -1,0 +1,90 @@
+Name:               apiserver-kfwbq
+Namespace:          kube-service-catalog
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:13:36 +0530
+Labels:             app=apiserver
+                    controller-revision-hash=3571523000
+                    pod-template-generation=1
+Annotations:        ca_hash=e17fa49d951a483e760c635f72877cdf79680244
+                    openshift.io/scc=hostmount-anyuid
+Status:             Running
+IP:                 10.128.0.84
+Controlled By:      DaemonSet/apiserver
+Containers:
+  apiserver:
+    Container ID:  cri-o://26d4ed63512013505514e6492d92d552317232554c071e167f021c264dd397f8
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-service-catalog:v3.11.16
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-service-catalog@sha256:ed2b191b581969fa49c20c86ca3edde8f2fe1a30f929163d6220761b103e92c5
+    Port:          6443/TCP
+    Host Port:     0/TCP
+    Command:
+      /usr/bin/service-catalog
+    Args:
+      apiserver
+      --storage-type
+      etcd
+      --secure-port
+      6443
+      --etcd-servers
+      https://cnv-executor-aditya-master1.example.com:2379
+      --etcd-cafile
+      /etc/origin/master/master.etcd-ca.crt
+      --etcd-certfile
+      /etc/origin/master/master.etcd-client.crt
+      --etcd-keyfile
+      /etc/origin/master/master.etcd-client.key
+      -v
+      3
+      --cors-allowed-origins
+      localhost
+      --enable-admission-plugins
+      NamespaceLifecycle,DefaultServicePlan,ServiceBindingsLifecycle,ServicePlanChangeValidator,BrokerAuthSarCheck
+      --feature-gates
+      OriginatingIdentity=true
+      --feature-gates
+      NamespacedServiceBroker=true
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:04 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:12 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:50 +0530
+    Ready:          True
+    Restart Count:  2
+    Environment:    <none>
+    Mounts:
+      /etc/origin/master from etcd-host-cert (ro)
+      /var/run/kubernetes-service-catalog from apiserver-ssl (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from service-catalog-apiserver-token-lgv6d (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  apiserver-ssl:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  apiserver-ssl
+    Optional:    false
+  etcd-host-cert:
+    Type:          HostPath (bare host directory volume)
+    Path:          /etc/origin/master
+    HostPathType:  
+  data-dir:
+    Type:    EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:  
+  service-catalog-apiserver-token-lgv6d:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  service-catalog-apiserver-token-lgv6d
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  node-role.kubernetes.io/master=true
+Tolerations:     node.kubernetes.io/disk-pressure:NoSchedule
+                 node.kubernetes.io/memory-pressure:NoSchedule
+                 node.kubernetes.io/not-ready:NoExecute
+                 node.kubernetes.io/unreachable:NoExecute
+Events:          <none>

@@ -1,0 +1,107 @@
+Name:               node-exporter-8wsn5
+Namespace:          openshift-monitoring
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-node2.example.com/172.16.0.14
+Start Time:         Fri, 09 Nov 2018 13:09:39 +0530
+Labels:             app=node-exporter
+                    controller-revision-hash=1727829175
+                    pod-template-generation=1
+Annotations:        openshift.io/scc=node-exporter
+Status:             Running
+IP:                 172.16.0.14
+Controlled By:      DaemonSet/node-exporter
+Containers:
+  node-exporter:
+    Container ID:  cri-o://ed85977143813fe5b802c9084dfc1ebb750eb1bcfb135d43ab2dc0c5069b4818
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/prometheus-node-exporter:v3.11
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/prometheus-node-exporter@sha256:8b8d64c35a38fb31700d98ec9280c3aa29920391c91556fd560f6ad96e906f1f
+    Port:          <none>
+    Host Port:     <none>
+    Args:
+      --web.listen-address=127.0.0.1:9101
+      --path.procfs=/host/proc
+      --path.sysfs=/host/sys
+      --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+)($|/)
+      --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|procfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$
+      --no-collector.wifi
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:09:43 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:23:41 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:42 +0530
+    Ready:          True
+    Restart Count:  2
+    Environment:    <none>
+    Mounts:
+      /host/proc from proc (rw)
+      /host/root from root (ro)
+      /host/sys from sys (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from node-exporter-token-jj52m (ro)
+  kube-rbac-proxy:
+    Container ID:  cri-o://a6eb8c6f08b7b374f629a2b5a252d07f4e5c0b4d68f185e63769046ad65b0f62
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-kube-rbac-proxy:v3.11
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-kube-rbac-proxy@sha256:427ced08c45018c5eff3be2adca99b3a04ea9683d5a46fed4ed2c8555aeeb648
+    Port:          9100/TCP
+    Host Port:     9100/TCP
+    Args:
+      --secure-listen-address=:9100
+      --upstream=http://127.0.0.1:9101/
+      --tls-cert-file=/etc/tls/private/tls.crt
+      --tls-private-key-file=/etc/tls/private/tls.key
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:09:44 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:23:42 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:42 +0530
+    Ready:          True
+    Restart Count:  2
+    Limits:
+      cpu:     20m
+      memory:  40Mi
+    Requests:
+      cpu:        10m
+      memory:     20Mi
+    Environment:  <none>
+    Mounts:
+      /etc/tls/private from node-exporter-tls (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from node-exporter-token-jj52m (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  proc:
+    Type:          HostPath (bare host directory volume)
+    Path:          /proc
+    HostPathType:  
+  sys:
+    Type:          HostPath (bare host directory volume)
+    Path:          /sys
+    HostPathType:  
+  root:
+    Type:          HostPath (bare host directory volume)
+    Path:          /
+    HostPathType:  
+  node-exporter-tls:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  node-exporter-tls
+    Optional:    false
+  node-exporter-token-jj52m:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  node-exporter-token-jj52m
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  beta.kubernetes.io/os=linux
+Tolerations:     node-role.kubernetes.io/master:NoSchedule
+                 node.kubernetes.io/disk-pressure:NoSchedule
+                 node.kubernetes.io/memory-pressure:NoSchedule
+                 node.kubernetes.io/not-ready:NoExecute
+                 node.kubernetes.io/unreachable:NoExecute
+Events:          <none>

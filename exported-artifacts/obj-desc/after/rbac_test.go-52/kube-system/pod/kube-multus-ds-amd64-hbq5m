@@ -1,0 +1,77 @@
+Name:               kube-multus-ds-amd64-hbq5m
+Namespace:          kube-system
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-node2.example.com/172.16.0.14
+Start Time:         Fri, 09 Nov 2018 13:16:00 +0530
+Labels:             app=multus
+                    controller-revision-hash=3603459446
+                    pod-template-generation=1
+                    tier=node
+Annotations:        <none>
+Status:             Running
+IP:                 172.16.0.14
+Controlled By:      DaemonSet/kube-multus-ds-amd64
+Containers:
+  kube-multus:
+    Container ID:  cri-o://f2b465e27831d45d9a68c5f24e13eee1e7a792d3dbf3debe2348cbd106db54b8
+    Image:         cnv-tech-preview/multus-cni:v1.3
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/cnv-tech-preview/multus-cni@sha256:a6a2e146251c14ee1be71dfc0c9f14bb1107c125ee0669e55ef69b34fcd34b71
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /entrypoint.sh
+    Args:
+      --multus-conf-file=/usr/src/multus-cni/images/00-multus.conf
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:09:45 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:23:43 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:43 +0530
+    Ready:          True
+    Restart Count:  2
+    Limits:
+      cpu:     100m
+      memory:  50Mi
+    Requests:
+      cpu:        100m
+      memory:     50Mi
+    Environment:  <none>
+    Mounts:
+      /host/etc/cni/net.d from cni (rw)
+      /host/opt/cni/bin from cnibin (rw)
+      /usr/src/multus-cni/images/ from multus-cfg (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from multus-token-v4h7h (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  cni:
+    Type:          HostPath (bare host directory volume)
+    Path:          /etc/cni/net.d
+    HostPathType:  
+  cnibin:
+    Type:          HostPath (bare host directory volume)
+    Path:          /opt/cni/bin
+    HostPathType:  
+  multus-cfg:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      multus-cni-config
+    Optional:  false
+  multus-token-v4h7h:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  multus-token-v4h7h
+    Optional:    false
+QoS Class:       Guaranteed
+Node-Selectors:  beta.kubernetes.io/arch=amd64
+Tolerations:     node-role.kubernetes.io/master:NoSchedule
+                 node.kubernetes.io/disk-pressure:NoSchedule
+                 node.kubernetes.io/memory-pressure:NoSchedule
+                 node.kubernetes.io/not-ready:NoExecute
+                 node.kubernetes.io/unreachable:NoExecute
+Events:          <none>

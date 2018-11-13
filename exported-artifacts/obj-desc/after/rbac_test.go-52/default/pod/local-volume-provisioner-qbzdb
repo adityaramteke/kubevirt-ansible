@@ -1,0 +1,63 @@
+Name:               local-volume-provisioner-qbzdb
+Namespace:          default
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:16:33 +0530
+Labels:             app=local-volume-provisioner
+                    controller-revision-hash=4211131125
+                    pod-template-generation=1
+Annotations:        openshift.io/scc=privileged
+Status:             Running
+IP:                 10.128.0.103
+Controlled By:      DaemonSet/local-volume-provisioner
+Containers:
+  provisioner:
+    Container ID:   cri-o://9ef9b211de3d5714f29720a9d53127801addda8f8e92bcf3163dd8201867094e
+    Image:          brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/local-storage-provisioner:latest
+    Image ID:       brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/local-storage-provisioner@sha256:2349e808ea33a688a56876788be1995a0bc927dd0a5059f76ae95838dbd07056
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:15 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:27:07 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:50 +0530
+    Ready:          True
+    Restart Count:  2
+    Environment:
+      MY_NODE_NAME:          (v1:spec.nodeName)
+      MY_NAMESPACE:         default (v1:metadata.namespace)
+      JOB_CONTAINER_IMAGE:  brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/local-storage-provisioner:latest
+    Mounts:
+      /etc/provisioner/config from provisioner-config (ro)
+      /mnt/local-storage from local-storage (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from local-storage-admin-token-n8b9t (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  provisioner-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      local-volume-config
+    Optional:  false
+  local-storage:
+    Type:          HostPath (bare host directory volume)
+    Path:          /mnt/local-storage
+    HostPathType:  
+  local-storage-admin-token-n8b9t:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  local-storage-admin-token-n8b9t
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/disk-pressure:NoSchedule
+                 node.kubernetes.io/memory-pressure:NoSchedule
+                 node.kubernetes.io/not-ready:NoExecute
+                 node.kubernetes.io/unreachable:NoExecute
+Events:          <none>

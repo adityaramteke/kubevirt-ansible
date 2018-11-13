@@ -1,0 +1,60 @@
+Name:               virt-api-bc78946cb-kvqbm
+Namespace:          kube-system
+Priority:           2000000000
+PriorityClassName:  system-cluster-critical
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Sat, 10 Nov 2018 21:50:44 +0530
+Labels:             kubevirt.io=virt-api
+                    pod-template-hash=673450276
+                    prometheus.kubevirt.io=
+Annotations:        scheduler.alpha.kubernetes.io/critical-pod=
+                    scheduler.alpha.kubernetes.io/tolerations=[
+  {
+    "key": "CriticalAddonsOnly",
+    "operator": "Exists"
+  }
+]
+
+Status:         Running
+IP:             10.128.0.77
+Controlled By:  ReplicaSet/virt-api-bc78946cb
+Containers:
+  virt-api:
+    Container ID:  cri-o://038efe6d148ec817526ce540701c80e4cfb679778e1618070ff14d854679dfb5
+    Image:         cnv-tech-preview/virt-api:v1.3.0
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/cnv-tech-preview/virt-api@sha256:41fcecd41138e99387c4f7aed7f5ea79c0163e3a28aabc862cf50be9f401dfd6
+    Ports:         8443/TCP, 8443/TCP
+    Host Ports:    0/TCP, 0/TCP
+    Command:
+      virt-api
+      --port
+      8443
+      --subresources-only
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:09:59 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:15 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:51 +0530
+    Ready:          True
+    Restart Count:  1
+    Readiness:      tcp-socket :8443 delay=5s timeout=1s period=10s #success=1 #failure=3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kubevirt-apiserver-token-6gfn2 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  kubevirt-apiserver-token-6gfn2:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  kubevirt-apiserver-token-6gfn2
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     <none>
+Events:          <none>

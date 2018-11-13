@@ -1,0 +1,51 @@
+Name:               glusterblock-storage-provisioner-dc-1-vwtlf
+Namespace:          glusterfs
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Sat, 10 Nov 2018 21:50:54 +0530
+Labels:             deployment=glusterblock-storage-provisioner-dc-1
+                    deploymentconfig=glusterblock-storage-provisioner-dc
+                    glusterfs=block-storage-provisioner-pod
+Annotations:        openshift.io/deployment-config.latest-version=1
+                    openshift.io/deployment-config.name=glusterblock-storage-provisioner-dc
+                    openshift.io/deployment.name=glusterblock-storage-provisioner-dc-1
+                    openshift.io/scc=restricted
+Status:             Running
+IP:                 10.128.0.92
+Controlled By:      ReplicationController/glusterblock-storage-provisioner-dc-1
+Containers:
+  glusterblock-provisioner:
+    Container ID:   cri-o://6c5f9aa7cb7d02b9701ced1ef7fa994149ffcfe025a4e0b4833e8e81804cd4f0
+    Image:          brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/ocs/rhgs-gluster-block-prov-rhel7:3.11.0-1
+    Image ID:       brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/ocs/rhgs-gluster-block-prov-rhel7@sha256:0615dbbca925cc61046f92ac6241aaf55ada78d5e8bfa90c59b1bc7fa9c83c0d
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:07 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:26:52 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:50 +0530
+    Ready:          True
+    Restart Count:  1
+    Environment:
+      PROVISIONER_NAME:  gluster.org/glusterblock
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from glusterblock-storage-provisioner-token-tjwvf (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  glusterblock-storage-provisioner-token-tjwvf:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  glusterblock-storage-provisioner-token-tjwvf
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     <none>
+Events:          <none>

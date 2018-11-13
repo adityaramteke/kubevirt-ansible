@@ -1,0 +1,18 @@
+Name:              local-pv-f52951cc
+Labels:            <none>
+Annotations:       pv.kubernetes.io/provisioned-by=local-volume-provisioner-cnv-executor-aditya-node2.example.com-3c3c5286-e3f0-11e8-a23a-fa163e449069
+Finalizers:        [kubernetes.io/pv-protection]
+StorageClass:      hdd
+Status:            Available
+Claim:             
+Reclaim Policy:    Delete
+Access Modes:      RWO
+Capacity:          6523Mi
+Node Affinity:     
+  Required Terms:  
+    Term 0:        kubernetes.io/hostname in [cnv-executor-aditya-node2.example.com]
+Message:           
+Source:
+    Type:  LocalVolume (a persistent volume backed by local storage on a node)
+    Path:  /mnt/local-storage/hdd/disk2
+Events:    <none>

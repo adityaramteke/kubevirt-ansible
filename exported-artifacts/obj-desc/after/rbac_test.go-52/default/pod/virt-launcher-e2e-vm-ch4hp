@@ -1,0 +1,90 @@
+Name:               virt-launcher-e2e-vm-ch4hp
+Namespace:          default
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-node2.example.com/172.16.0.14
+Start Time:         Tue, 13 Nov 2018 18:35:08 +0530
+Labels:             kubevirt-vm=cirros
+                    kubevirt.io=virt-launcher
+                    kubevirt.io/created-by=b9ee4adb-e744-11e8-ba1b-fa163e449069
+                    special=e2e-key
+Annotations:        kubevirt.io/domain=e2e-vm
+                    kubevirt.io/owned-by=virt-controller
+                    openshift.io/scc=privileged
+Status:             Pending
+IP:                 
+Containers:
+  compute:
+    Container ID:  
+    Image:         cnv-tech-preview/virt-launcher:v1.3.0
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /usr/bin/virt-launcher
+      --qemu-timeout
+      5m
+      --name
+      e2e-vm
+      --uid
+      b9ee4adb-e744-11e8-ba1b-fa163e449069
+      --namespace
+      default
+      --kubevirt-share-dir
+      /var/run/kubevirt
+      --ephemeral-disk-dir
+      /var/run/kubevirt-ephemeral-disks
+      --readiness-file
+      /tmp/healthy
+      --grace-period-seconds
+      45
+      --hook-sidecars
+      0
+    State:          Waiting
+      Reason:       ContainerCreating
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      devices.kubevirt.io/kvm:        1
+      devices.kubevirt.io/tun:        1
+      devices.kubevirt.io/vhost-net:  1
+    Requests:
+      devices.kubevirt.io/kvm:        1
+      devices.kubevirt.io/tun:        1
+      devices.kubevirt.io/vhost-net:  1
+      memory:                         1145892Ki
+    Readiness:                        exec [cat /tmp/healthy] delay=2s timeout=5s period=2s #success=1 #failure=5
+    Environment:                      <none>
+    Mounts:
+      /var/run/kubevirt from virt-share-dir (rw)
+      /var/run/kubevirt-ephemeral-disks from ephemeral-disks (rw)
+      /var/run/kubevirt-private/vmi-disks/disk0-pvc from disk0-pvc (rw)
+      /var/run/libvirt from libvirt-runtime (rw)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  disk0-pvc:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  e2e-pvc
+    ReadOnly:   false
+  virt-share-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/kubevirt
+    HostPathType:  
+  libvirt-runtime:
+    Type:    EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:  
+  ephemeral-disks:
+    Type:        EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:      
+QoS Class:       Burstable
+Node-Selectors:  kubevirt.io/schedulable=true
+Tolerations:     node.kubernetes.io/memory-pressure:NoSchedule
+Events:
+  Type     Reason       Age                    From                                            Message
+  ----     ------       ----                   ----                                            -------
+  Warning  FailedMount  4m (x397404 over 23h)  kubelet, cnv-executor-aditya-node2.example.com  MountVolume.NewMounter initialization failed for volume "pvc-2fe8fcaa-e66d-11e8-ba1b-fa163e449069" : endpoints "glusterfs-dynamic-e2e-pvc" not found

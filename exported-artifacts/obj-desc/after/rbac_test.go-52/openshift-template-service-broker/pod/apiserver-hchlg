@@ -1,0 +1,71 @@
+Name:               apiserver-hchlg
+Namespace:          openshift-template-service-broker
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:14:41 +0530
+Labels:             apiserver=true
+                    controller-revision-hash=1629950705
+                    pod-template-generation=1
+Annotations:        openshift.io/scc=restricted
+Status:             Running
+IP:                 10.128.0.82
+Controlled By:      DaemonSet/apiserver
+Containers:
+  c:
+    Container ID:  cri-o://939b9ec4b9e3f2012aa598dd05194415023fa9211b640d3ada2f595db8ba61d7
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-template-service-broker:v3.11.16
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-template-service-broker@sha256:c0fa45c468bd2fd00e4429b85085632a90c7eb4df18a7168eeff5caca00c42a9
+    Port:          8443/TCP
+    Host Port:     0/TCP
+    Command:
+      /usr/bin/template-service-broker
+      start
+      template-service-broker
+      --secure-port=8443
+      --audit-log-path=-
+      --tls-cert-file=/var/serving-cert/tls.crt
+      --tls-private-key-file=/var/serving-cert/tls.key
+      --v=0
+      --config=/var/apiserver-config/apiserver-config.yaml
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:03 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:35 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:54 +0530
+    Ready:          True
+    Restart Count:  3
+    Readiness:      http-get https://:8443/healthz delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:    <none>
+    Mounts:
+      /var/apiserver-config from apiserver-config (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from apiserver-token-9vq2z (ro)
+      /var/serving-cert from serving-cert (rw)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  serving-cert:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  apiserver-serving-cert
+    Optional:    false
+  apiserver-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      apiserver-config
+    Optional:  false
+  apiserver-token-9vq2z:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  apiserver-token-9vq2z
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  node-role.kubernetes.io/master=true
+Tolerations:     node.kubernetes.io/disk-pressure:NoSchedule
+                 node.kubernetes.io/memory-pressure:NoSchedule
+                 node.kubernetes.io/not-ready:NoExecute
+                 node.kubernetes.io/unreachable:NoExecute
+Events:          <none>

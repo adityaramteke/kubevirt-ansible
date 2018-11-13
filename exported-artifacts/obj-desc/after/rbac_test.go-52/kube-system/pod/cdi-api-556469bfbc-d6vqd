@@ -1,0 +1,48 @@
+Name:               cdi-api-556469bfbc-d6vqd
+Namespace:          kube-system
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Sat, 10 Nov 2018 21:50:44 +0530
+Labels:             cdi.kubevirt.io=cdi-api
+                    pod-template-hash=1120256967
+Annotations:        <none>
+Status:             Running
+IP:                 10.128.0.88
+Controlled By:      ReplicaSet/cdi-api-556469bfbc
+Containers:
+  cdi-apiserver-api:
+    Container ID:  cri-o://6b5be972fe0323ccf21a51061ae46707cfc431f6c637a4117ac7627473d506d3
+    Image:         cnv-tech-preview/virt-cdi-apiserver:v1.3.0
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/cnv-tech-preview/virt-cdi-apiserver@sha256:26ebb0e37bfc1176a798a518ebd364db49b2a59460d0290e7854b0d07bc65b4e
+    Port:          <none>
+    Host Port:     <none>
+    Args:
+      -v=1
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:05 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:27:11 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:51 +0530
+    Ready:          True
+    Restart Count:  1
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from cdi-apiserver-token-p7fm6 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  cdi-apiserver-token-p7fm6:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  cdi-apiserver-token-p7fm6
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     <none>
+Events:          <none>

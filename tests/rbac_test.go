@@ -29,7 +29,7 @@ var _ = Describe("RBAC", func() {
 
 	BeforeEach(func() {
 		By(fmt.Sprintf("Login with the user %s", tests.UsernameAdminUser))
-		_, _, err := ktests.RunCommandWithNS("", "oc", "login", "-u", tests.UsernameAdminUser, "-p", "123456")
+		_, _, err := ktests.RunCommandWithNS("", "oc", "login", "-u", tests.UsernameAdminUser, "-p", tests.PasswordAdminUser)
 		Expect(err).ToNot(HaveOccurred(), "Should login as %s user", tests.UsernameAdminUser)
 
 		ktests.BeforeTestCleanup()
@@ -38,7 +38,7 @@ var _ = Describe("RBAC", func() {
 
 	AfterEach(func() {
 		By(fmt.Sprintf("Login with the user %s", tests.UsernameAdminUser))
-		_, _, err := ktests.RunCommandWithNS("", "oc", "login", "-u", tests.UsernameAdminUser, "-p", "123456")
+		_, _, err := ktests.RunCommandWithNS("", "oc", "login", "-u", tests.UsernameAdminUser, "-p", tests.PasswordAdminUser)
 		Expect(err).ToNot(HaveOccurred(), "Should login as %s user", tests.UsernameAdminUser)
 
 		tests.DeleteUser(tests.UsernameTestUser)
@@ -51,7 +51,7 @@ var _ = Describe("RBAC", func() {
 	Describe("RBAC with default permission", func() {
 		It("should allow to access subresource endpoint.", func() {
 			By(fmt.Sprintf("Login with the user %s", tests.UsernameTestUser))
-			_, _, err := ktests.RunCommandWithNS("", "oc", "login", "-u", tests.UsernameTestUser, "-p", "123456")
+			_, _, err := ktests.RunCommandWithNS("", "oc", "login", "-u", tests.UsernameTestUser, "-p", tests.PasswordAdminUser)
 			Expect(err).ToNot(HaveOccurred(), "Should login as %s user", tests.UsernameTestUser)
 
 			By("Creating a project/namespace")
@@ -109,7 +109,7 @@ var _ = Describe("RBAC", func() {
 		}
 
 		By(fmt.Sprintf("Login with the user %s", tests.UsernameTestUser))
-		_, _, err = ktests.RunCommandWithNS("", "oc", "login", "-u", tests.UsernameTestUser, "-p", "123456")
+		_, _, err = ktests.RunCommandWithNS("", "oc", "login", "-u", tests.UsernameTestUser, "-p", tests.PasswordAdminUser)
 		Expect(err).ToNot(HaveOccurred(), "Should login as %s user", tests.UsernameTestUser)
 
 		By("Creating a VM from manifest")
@@ -191,7 +191,7 @@ func createResourcesToTestViewRole() {
 	vm.Name = "vm-cirros"
 	vm.Manifest = "tests/manifests/vm-cirros.yaml"
 
-	_, _, err := ktests.RunCommandWithNS("", "oc", "login", "-u", tests.UsernameAdminUser, "-p", "123456")
+	_, _, err := ktests.RunCommandWithNS("", "oc", "login", "-u", tests.UsernameAdminUser, "-p", tests.PasswordAdminUser)
 	Expect(err).ToNot(HaveOccurred(), "Should login as %s user", tests.UsernameAdminUser)
 
 	_, _, err = ktests.RunCommandWithNS(ktests.NamespaceTestAlternative, "oc", "create", "-f", vm.Manifest)

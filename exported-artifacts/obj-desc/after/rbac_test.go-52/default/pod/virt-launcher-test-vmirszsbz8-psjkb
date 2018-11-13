@@ -1,0 +1,106 @@
+Name:               virt-launcher-test-vmirszsbz8-psjkb
+Namespace:          default
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-node1.example.com/172.16.0.13
+Start Time:         Tue, 13 Nov 2018 12:12:16 +0530
+Labels:             kubevirt.io=virt-launcher
+                    kubevirt.io/created-by=400074cd-e70f-11e8-ba1b-fa163e449069
+                    rs=test-vmirs
+Annotations:        k8s.v1.cni.cncf.io/networks-status=[{
+    "name": "openshift-sdn",
+    "ips": [
+        "10.130.0.81"
+    ],
+    "default": true,
+    "dns": {}
+}]
+         kubevirt.io/domain=test-vmirszsbz8
+         kubevirt.io/owned-by=virt-handler
+         openshift.io/scc=privileged
+Status:  Running
+IP:      10.130.0.81
+Containers:
+  volumemyvolume:
+    Container ID:  cri-o://c1a4b230f2c68d6b9359435fd90d124295775aeee615bd1d22d2d069d1677472
+    Image:         kubevirt/fedora-cloud-registry-disk-demo:latest
+    Image ID:      docker.io/kubevirt/fedora-cloud-registry-disk-demo@sha256:4e6e4903a77eb21e559b41299ce2720d392d80c203e80cdfb7b7fb1527234ae3
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /entry-point.sh
+    State:          Running
+      Started:      Tue, 13 Nov 2018 12:12:18 +0530
+    Ready:          True
+    Restart Count:  0
+    Readiness:      exec [cat /tmp/healthy] delay=2s timeout=5s period=5s #success=2 #failure=5
+    Environment:
+      COPY_PATH:  /var/run/kubevirt-ephemeral-disks/registry-disk-data/default/test-vmirszsbz8/disk_myvolume/disk-image
+    Mounts:
+      /var/run/kubevirt-ephemeral-disks from ephemeral-disks (rw)
+  compute:
+    Container ID:  cri-o://5b73e1a612bd6f49cee67b702185d6b4dd382d90be59e7d2e8c1a43f3a3efed0
+    Image:         cnv-tech-preview/virt-launcher:v1.3.0
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/cnv-tech-preview/virt-launcher@sha256:4607e4fa1532a44667884095e98f237c602fb4eaaafa2fbde5e10dc1ba7e7290
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /usr/bin/virt-launcher
+      --qemu-timeout
+      5m
+      --name
+      test-vmirszsbz8
+      --uid
+      400074cd-e70f-11e8-ba1b-fa163e449069
+      --namespace
+      default
+      --kubevirt-share-dir
+      /var/run/kubevirt
+      --ephemeral-disk-dir
+      /var/run/kubevirt-ephemeral-disks
+      --readiness-file
+      /tmp/healthy
+      --grace-period-seconds
+      45
+      --hook-sidecars
+      0
+    State:          Running
+      Started:      Tue, 13 Nov 2018 12:12:19 +0530
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      devices.kubevirt.io/kvm:        1
+      devices.kubevirt.io/tun:        1
+      devices.kubevirt.io/vhost-net:  1
+    Requests:
+      devices.kubevirt.io/kvm:        1
+      devices.kubevirt.io/tun:        1
+      devices.kubevirt.io/vhost-net:  1
+      memory:                         610554432
+    Readiness:                        exec [cat /tmp/healthy] delay=2s timeout=5s period=2s #success=1 #failure=5
+    Environment:                      <none>
+    Mounts:
+      /var/run/kubevirt from virt-share-dir (rw)
+      /var/run/kubevirt-ephemeral-disks from ephemeral-disks (rw)
+      /var/run/libvirt from libvirt-runtime (rw)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  virt-share-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/kubevirt
+    HostPathType:  
+  libvirt-runtime:
+    Type:    EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:  
+  ephemeral-disks:
+    Type:        EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:      
+QoS Class:       Burstable
+Node-Selectors:  kubevirt.io/schedulable=true
+Tolerations:     node.kubernetes.io/memory-pressure:NoSchedule
+Events:          <none>

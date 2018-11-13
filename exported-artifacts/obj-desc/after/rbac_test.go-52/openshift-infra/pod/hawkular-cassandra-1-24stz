@@ -1,0 +1,79 @@
+Name:               hawkular-cassandra-1-24stz
+Namespace:          openshift-infra
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Sat, 10 Nov 2018 21:50:44 +0530
+Labels:             metrics-infra=hawkular-cassandra
+                    name=hawkular-cassandra-1
+                    type=hawkular-cassandra
+Annotations:        <none>
+Status:             Running
+IP:                 10.128.0.101
+Controlled By:      ReplicationController/hawkular-cassandra-1
+Containers:
+  hawkular-cassandra-1:
+    Container ID:  cri-o://7e674261038e69f36d2ad75fa873f17b2fa2ef445d60c902709fd9236ea8efce
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/metrics-cassandra:v3.11.16
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/metrics-cassandra@sha256:216ba31040412adf2d9632f7f32de3dfbcac7243961073c94c503ad15de3d93e
+    Ports:         9042/TCP, 9160/TCP, 7000/TCP, 7001/TCP
+    Host Ports:    0/TCP, 0/TCP, 0/TCP, 0/TCP
+    Command:
+      /opt/apache-cassandra/bin/cassandra-docker.sh
+      --cluster_name=hawkular-metrics
+      --data_volume=/cassandra_data
+      --internode_encryption=all
+      --require_node_auth=true
+      --enable_client_encryption=true
+      --require_client_auth=true
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:08 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:26:14 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:52 +0530
+    Ready:          True
+    Restart Count:  1
+    Limits:
+      memory:  2G
+    Requests:
+      memory:   1G
+    Readiness:  exec [/opt/apache-cassandra/bin/cassandra-docker-ready.sh] delay=0s timeout=10s period=10s #success=1 #failure=3
+    Environment:
+      CASSANDRA_MASTER:               true
+      CASSANDRA_DATA_VOLUME:          /cassandra_data
+      JVM_OPTS:                       -Dcassandra.commitlog.ignorereplayerrors=true
+      ENABLE_PROMETHEUS_ENDPOINT:     True
+      TRUSTSTORE_NODES_AUTHORITIES:   /hawkular-cassandra-certs/tls.peer.truststore.crt
+      TRUSTSTORE_CLIENT_AUTHORITIES:  /hawkular-cassandra-certs/tls.client.truststore.crt
+      TAKE_SNAPSHOT:                  False
+      POD_NAMESPACE:                  openshift-infra (v1:metadata.namespace)
+      MEMORY_LIMIT:                   2000000000 (limits.memory)
+      CPU_LIMIT:                      node allocatable (limits.cpu)
+    Mounts:
+      /cassandra_data from cassandra-data (rw)
+      /hawkular-cassandra-certs from hawkular-cassandra-certs (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from cassandra-token-7g4p4 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  cassandra-data:
+    Type:    EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:  
+  hawkular-cassandra-certs:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  hawkular-cassandra-certs
+    Optional:    false
+  cassandra-token-7g4p4:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  cassandra-token-7g4p4
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/memory-pressure:NoSchedule
+Events:          <none>

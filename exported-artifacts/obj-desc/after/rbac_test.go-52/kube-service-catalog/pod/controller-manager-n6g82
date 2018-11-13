@@ -1,0 +1,77 @@
+Name:               controller-manager-n6g82
+Namespace:          kube-service-catalog
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:13:43 +0530
+Labels:             app=controller-manager
+                    controller-revision-hash=935412553
+                    pod-template-generation=1
+Annotations:        openshift.io/scc=restricted
+Status:             Running
+IP:                 10.128.0.93
+Controlled By:      DaemonSet/controller-manager
+Containers:
+  controller-manager:
+    Container ID:  cri-o://4d4b6cf0b6215cc0c2f5cfa0d80be354944392a3aff97fa00c7ac26e79e6e89a
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-service-catalog:v3.11.16
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-service-catalog@sha256:ed2b191b581969fa49c20c86ca3edde8f2fe1a30f929163d6220761b103e92c5
+    Port:          6443/TCP
+    Host Port:     0/TCP
+    Command:
+      /usr/bin/service-catalog
+    Args:
+      controller-manager
+      --secure-port
+      6443
+      -v
+      3
+      --leader-election-namespace
+      kube-service-catalog
+      --leader-elect-resource-lock
+      configmaps
+      --cluster-id-configmap-namespace=kube-service-catalog
+      --broker-relist-interval
+      5m
+      --feature-gates
+      OriginatingIdentity=true
+      --feature-gates
+      AsyncBindingOperations=true
+      --feature-gates
+      NamespacedServiceBroker=true
+    State:          Running
+      Started:      Wed, 14 Nov 2018 14:32:26 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Wed, 14 Nov 2018 14:31:51 +0530
+      Finished:     Wed, 14 Nov 2018 14:31:51 +0530
+    Ready:          True
+    Restart Count:  11
+    Environment:
+      K8S_NAMESPACE:  kube-service-catalog (v1:metadata.namespace)
+    Mounts:
+      /var/run/kubernetes-service-catalog from service-catalog-ssl (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from service-catalog-controller-token-vbxm9 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  service-catalog-ssl:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  controllermanager-ssl
+    Optional:    false
+  service-catalog-controller-token-vbxm9:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  service-catalog-controller-token-vbxm9
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  node-role.kubernetes.io/master=true
+Tolerations:     node.kubernetes.io/disk-pressure:NoSchedule
+                 node.kubernetes.io/memory-pressure:NoSchedule
+                 node.kubernetes.io/not-ready:NoExecute
+                 node.kubernetes.io/unreachable:NoExecute
+Events:          <none>

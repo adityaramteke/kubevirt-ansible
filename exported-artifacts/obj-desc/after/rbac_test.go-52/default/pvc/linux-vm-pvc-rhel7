@@ -1,0 +1,13 @@
+Name:          linux-vm-pvc-rhel7
+Namespace:     default
+StorageClass:  glusterfs-storage
+Status:        Bound
+Volume:        pvc-05713ca3-e717-11e8-ba1b-fa163e449069
+Labels:        <none>
+Annotations:   pv.kubernetes.io/bind-completed=yes
+               pv.kubernetes.io/bound-by-controller=yes
+               volume.beta.kubernetes.io/storage-provisioner=kubernetes.io/glusterfs
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      10Gi
+Access Modes:  RWO
+Events:        <none>

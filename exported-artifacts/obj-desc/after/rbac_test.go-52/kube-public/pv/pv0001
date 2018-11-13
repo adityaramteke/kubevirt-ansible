@@ -1,0 +1,18 @@
+Name:            pv0001
+Labels:          <none>
+Annotations:     <none>
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    
+Status:          Available
+Claim:           
+Reclaim Policy:  Recycle
+Access Modes:    RWO
+Capacity:        20Gi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:      NFS (an NFS mount that lasts the lifetime of a pod)
+    Server:    10.66.137.157
+    Path:      /opt/data1
+    ReadOnly:  false
+Events:        <none>

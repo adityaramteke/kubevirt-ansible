@@ -1,0 +1,96 @@
+Name:               hawkular-metrics-5jcdm
+Namespace:          openshift-infra
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Sat, 10 Nov 2018 21:50:54 +0530
+Labels:             metrics-infra=hawkular-metrics
+                    name=hawkular-metrics
+Annotations:        <none>
+Status:             Running
+IP:                 10.128.0.89
+Controlled By:      ReplicationController/hawkular-metrics
+Containers:
+  hawkular-metrics:
+    Container ID:  cri-o://8e1198d5b67d5fd5c314c122130a8e2d7dc468dadb8ac67e3025c1e0d3635eca
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/metrics-hawkular-metrics:v3.11.16
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/metrics-hawkular-metrics@sha256:36ffe9fe72dc4e96643c887d8a1a12fbe3f1339aebba047a6b20437a5a915f4f
+    Ports:         8080/TCP, 8443/TCP, 8888/TCP
+    Host Ports:    0/TCP, 0/TCP, 0/TCP
+    Command:
+      /opt/hawkular/scripts/hawkular-metrics-wrapper.sh
+      -b
+      0.0.0.0
+      -Dhawkular.metrics.cassandra.nodes=hawkular-cassandra
+      -Dhawkular.metrics.cassandra.use-ssl
+      -Dhawkular.metrics.openshift.auth-methods=openshift-oauth,htpasswd
+      -Dhawkular.metrics.openshift.htpasswd-file=/hawkular-account/hawkular-metrics.htpasswd
+      -Dhawkular.metrics.allowed-cors-access-control-allow-headers=authorization
+      -Dhawkular.metrics.default-ttl=7
+      -Dhawkular.metrics.admin-tenant=_hawkular_admin
+      -Dhawkular-alerts.cassandra-nodes=hawkular-cassandra
+      -Dhawkular-alerts.cassandra-use-ssl
+      -Dhawkular.alerts.openshift.auth-methods=openshift-oauth,htpasswd
+      -Dhawkular.alerts.openshift.htpasswd-file=/hawkular-account/hawkular-metrics.htpasswd
+      -Dhawkular.alerts.allowed-cors-access-control-allow-headers=authorization
+      -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true
+      -Dorg.apache.catalina.connector.CoyoteAdapter.ALLOW_BACKSLASH=true
+      -Dcom.datastax.driver.FORCE_NIO=true
+      -DKUBERNETES_MASTER_URL=https://kubernetes.default.svc
+      -DUSER_WRITE_ACCESS=False
+      -Dhawkular.metrics.jmx-reporting-enabled
+    State:          Running
+      Started:      Wed, 14 Nov 2018 18:20:24 +0530
+    Last State:     Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Wed, 14 Nov 2018 18:14:34 +0530
+      Finished:     Wed, 14 Nov 2018 18:20:24 +0530
+    Ready:          False
+    Restart Count:  944
+    Limits:
+      memory:  2500M
+    Requests:
+      memory:   1500M
+    Liveness:   exec [/opt/hawkular/scripts/hawkular-metrics-liveness.py] delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:  exec [/opt/hawkular/scripts/hawkular-metrics-readiness.py] delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      POD_NAMESPACE:                  openshift-infra (v1:metadata.namespace)
+      MASTER_URL:                     https://kubernetes.default.svc
+      JGROUPS_PASSWORD:               JwzfyvK3ZHZWBveg9
+      TRUSTSTORE_AUTHORITIES:         /hawkular-metrics-certs/tls.truststore.crt
+      ENABLE_PROMETHEUS_ENDPOINT:     True
+      OPENSHIFT_KUBE_PING_NAMESPACE:  openshift-infra (v1:metadata.namespace)
+      OPENSHIFT_KUBE_PING_LABELS:     metrics-infra=hawkular-metrics,name=hawkular-metrics
+      STARTUP_TIMEOUT:                500
+    Mounts:
+      /hawkular-account from hawkular-metrics-account (rw)
+      /hawkular-metrics-certs from hawkular-metrics-certs (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from hawkular-token-7djt4 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             False 
+  ContainersReady   False 
+  PodScheduled      True 
+Volumes:
+  hawkular-metrics-certs:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  hawkular-metrics-certs
+    Optional:    false
+  hawkular-metrics-account:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  hawkular-metrics-account
+    Optional:    false
+  hawkular-token-7djt4:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  hawkular-token-7djt4
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/memory-pressure:NoSchedule
+Events:
+  Type     Reason     Age                  From                                              Message
+  ----     ------     ----                 ----                                              -------
+  Warning  Unhealthy  7m (x26584 over 3d)  kubelet, cnv-executor-aditya-master1.example.com  Readiness probe failed: The MetricService is not yet in the STARTED state [STARTING]. We need to wait until its in the STARTED state.
+  Warning  Unhealthy  2m (x2622 over 3d)   kubelet, cnv-executor-aditya-master1.example.com  Readiness probe failed: The MetricService is not yet in the STARTED state [FAILED]. We need to wait until its in the STARTED state.

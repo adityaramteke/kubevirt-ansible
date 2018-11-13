@@ -1,0 +1,148 @@
+Name:               alertmanager-main-1
+Namespace:          openshift-monitoring
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:09:18 +0530
+Labels:             alertmanager=main
+                    app=alertmanager
+                    controller-revision-hash=alertmanager-main-cd49bbf54
+                    statefulset.kubernetes.io/pod-name=alertmanager-main-1
+Annotations:        openshift.io/scc=restricted
+Status:             Running
+IP:                 10.128.0.81
+Controlled By:      StatefulSet/alertmanager-main
+Containers:
+  alertmanager:
+    Container ID:  cri-o://ec85f8a001d93c4cc1fd3bc7685b8687927482a1b9d143bcf3db5a0e80d4e800
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/prometheus-alertmanager:v3.11
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/prometheus-alertmanager@sha256:606277daef694175cbaa87355e87e3e3b6278833233337644d7f2353124b2305
+    Port:          6783/TCP
+    Host Port:     0/TCP
+    Args:
+      --config.file=/etc/alertmanager/config/alertmanager.yaml
+      --cluster.listen-address=$(POD_IP):6783
+      --storage.path=/alertmanager
+      --data.retention=120h
+      --web.listen-address=127.0.0.1:9093
+      --web.external-url=https://alertmanager-main-openshift-monitoring.cloudapps.example.com/
+      --web.route-prefix=/
+      --cluster.peer=alertmanager-main-0.alertmanager-operated.openshift-monitoring.svc:6783
+      --cluster.peer=alertmanager-main-1.alertmanager-operated.openshift-monitoring.svc:6783
+      --cluster.peer=alertmanager-main-2.alertmanager-operated.openshift-monitoring.svc:6783
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:09:59 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:00 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:53 +0530
+    Ready:          True
+    Restart Count:  2
+    Requests:
+      memory:  200Mi
+    Environment:
+      POD_IP:   (v1:status.podIP)
+    Mounts:
+      /alertmanager from alertmanager-main-db (rw)
+      /etc/alertmanager/config from config-volume (rw)
+      /etc/alertmanager/secrets/alertmanager-main-proxy from secret-alertmanager-main-proxy (ro)
+      /etc/alertmanager/secrets/alertmanager-main-tls from secret-alertmanager-main-tls (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from alertmanager-main-token-c595p (ro)
+  config-reloader:
+    Container ID:  cri-o://8ea96b72a0061e0813fd9daef8aa19ddeeae38875be51514f3b137f0aa98490e
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-configmap-reloader:v3.11
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-configmap-reloader@sha256:93b9ec173e1a8e5252564e36c1a6c2e96a705571d8a15e8f8c471bda6995d96c
+    Port:          <none>
+    Host Port:     <none>
+    Args:
+      -webhook-url=http://localhost:9093/-/reload
+      -volume-dir=/etc/alertmanager/config
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:04 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:07 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:53 +0530
+    Ready:          True
+    Restart Count:  2
+    Limits:
+      cpu:     5m
+      memory:  10Mi
+    Requests:
+      cpu:        5m
+      memory:     10Mi
+    Environment:  <none>
+    Mounts:
+      /etc/alertmanager/config from config-volume (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from alertmanager-main-token-c595p (ro)
+  alertmanager-proxy:
+    Container ID:  cri-o://a309904599007589533a982b87e4d988d42e13f2154aedb5b83d517b4b7a0343
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/oauth-proxy:v3.11
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/oauth-proxy@sha256:a6f99ec47411e351b21f3d0d83803ed80fca8aa503ffb7b0bf67553cd75e07d5
+    Port:          9094/TCP
+    Host Port:     0/TCP
+    Args:
+      -provider=openshift
+      -https-address=:9094
+      -http-address=
+      -email-domain=*
+      -upstream=http://localhost:9093
+      -openshift-sar={"resource": "namespaces", "verb": "get"}
+      -openshift-delegate-urls={"/": {"resource": "namespaces", "verb": "get"}}
+      -tls-cert=/etc/tls/private/tls.crt
+      -tls-key=/etc/tls/private/tls.key
+      -client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
+      -cookie-secret-file=/etc/proxy/secrets/session_secret
+      -openshift-service-account=alertmanager-main
+      -openshift-ca=/etc/pki/tls/cert.pem
+      -openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      -skip-auth-regex=^/metrics
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:07 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:09 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:53 +0530
+    Ready:          True
+    Restart Count:  2
+    Environment:
+      HTTP_PROXY:   
+      HTTPS_PROXY:  
+      NO_PROXY:     
+    Mounts:
+      /etc/proxy/secrets from secret-alertmanager-main-proxy (rw)
+      /etc/tls/private from secret-alertmanager-main-tls (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from alertmanager-main-token-c595p (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  config-volume:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  alertmanager-main
+    Optional:    false
+  secret-alertmanager-main-tls:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  alertmanager-main-tls
+    Optional:    false
+  secret-alertmanager-main-proxy:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  alertmanager-main-proxy
+    Optional:    false
+  alertmanager-main-db:
+    Type:    EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:  
+  alertmanager-main-token-c595p:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  alertmanager-main-token-c595p
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  node-role.kubernetes.io/infra=true
+Tolerations:     node.kubernetes.io/memory-pressure:NoSchedule
+Events:          <none>

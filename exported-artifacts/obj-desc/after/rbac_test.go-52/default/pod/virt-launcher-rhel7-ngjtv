@@ -1,0 +1,102 @@
+Name:               virt-launcher-rhel7-ngjtv
+Namespace:          default
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-node1.example.com/172.16.0.13
+Start Time:         Wed, 14 Nov 2018 17:43:26 +0530
+Labels:             kubevirt-vm=vm-rhel7
+                    kubevirt.io=virt-launcher
+                    kubevirt.io/created-by=abee3143-e806-11e8-8bb9-fa163e449069
+                    kubevirt.io/os=rhel-7.4
+Annotations:        k8s.v1.cni.cncf.io/networks-status=[{
+    "name": "openshift-sdn",
+    "ips": [
+        "10.130.0.239"
+    ],
+    "default": true,
+    "dns": {}
+}]
+         kubevirt.io/domain=rhel7
+         kubevirt.io/owned-by=virt-handler
+         openshift.io/scc=privileged
+Status:  Running
+IP:      10.130.0.239
+Containers:
+  compute:
+    Container ID:  cri-o://5cfa5b6dd2cc536ab61ea74ec635175744619904f283966614d6b16c85eff641
+    Image:         cnv-tech-preview/virt-launcher:v1.3.0
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/cnv-tech-preview/virt-launcher@sha256:4607e4fa1532a44667884095e98f237c602fb4eaaafa2fbde5e10dc1ba7e7290
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /usr/bin/virt-launcher
+      --qemu-timeout
+      5m
+      --name
+      rhel7
+      --uid
+      abee3143-e806-11e8-8bb9-fa163e449069
+      --namespace
+      default
+      --kubevirt-share-dir
+      /var/run/kubevirt
+      --ephemeral-disk-dir
+      /var/run/kubevirt-ephemeral-disks
+      --readiness-file
+      /tmp/healthy
+      --grace-period-seconds
+      15
+      --hook-sidecars
+      0
+    State:          Running
+      Started:      Wed, 14 Nov 2018 17:43:29 +0530
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      devices.kubevirt.io/kvm:        1
+      devices.kubevirt.io/tun:        1
+      devices.kubevirt.io/vhost-net:  1
+    Requests:
+      devices.kubevirt.io/kvm:        1
+      devices.kubevirt.io/tun:        1
+      devices.kubevirt.io/vhost-net:  1
+      memory:                         4426076161
+    Readiness:                        exec [cat /tmp/healthy] delay=2s timeout=5s period=2s #success=1 #failure=5
+    Environment:                      <none>
+    Mounts:
+      /var/run/kubevirt from virt-share-dir (rw)
+      /var/run/kubevirt-ephemeral-disks from ephemeral-disks (rw)
+      /var/run/kubevirt-private/vmi-disks/disk0-pvc from disk0-pvc (rw)
+      /var/run/libvirt from libvirt-runtime (rw)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  disk0-pvc:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  linux-vm-pvc-rhel7
+    ReadOnly:   false
+  virt-share-dir:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/run/kubevirt
+    HostPathType:  
+  libvirt-runtime:
+    Type:    EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:  
+  ephemeral-disks:
+    Type:        EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:      
+QoS Class:       Burstable
+Node-Selectors:  kubevirt.io/schedulable=true
+Tolerations:     node.kubernetes.io/memory-pressure:NoSchedule
+Events:
+  Type     Reason     Age               From                                            Message
+  ----     ------     ----              ----                                            -------
+  Normal   Scheduled  29s               default-scheduler                               Successfully assigned default/virt-launcher-rhel7-ngjtv to cnv-executor-aditya-node1.example.com
+  Normal   Pulled     19s               kubelet, cnv-executor-aditya-node1.example.com  Container image "cnv-tech-preview/virt-launcher:v1.3.0" already present on machine
+  Normal   Created    18s               kubelet, cnv-executor-aditya-node1.example.com  Created container
+  Normal   Started    18s               kubelet, cnv-executor-aditya-node1.example.com  Started container
+  Warning  Unhealthy  8s (x5 over 16s)  kubelet, cnv-executor-aditya-node1.example.com  Readiness probe failed: cat: /tmp/healthy: No such file or directory

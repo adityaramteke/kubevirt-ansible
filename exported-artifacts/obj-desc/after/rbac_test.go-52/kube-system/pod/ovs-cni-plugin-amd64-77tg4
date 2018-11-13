@@ -1,0 +1,63 @@
+Name:               ovs-cni-plugin-amd64-77tg4
+Namespace:          kube-system
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-node2.example.com/172.16.0.14
+Start Time:         Fri, 09 Nov 2018 13:16:00 +0530
+Labels:             app=ovs-cni
+                    controller-revision-hash=4274786779
+                    pod-template-generation=1
+                    tier=node
+Annotations:        <none>
+Status:             Running
+IP:                 172.16.0.14
+Controlled By:      DaemonSet/ovs-cni-plugin-amd64
+Containers:
+  ovs-cni-plugin:
+    Container ID:   cri-o://7ca21faa3c011726b627adceee13a05432cfbbbc795491a673fec7be18844f74
+    Image:          cnv-tech-preview/ovs-cni-plugin:v1.3
+    Image ID:       brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/cnv-tech-preview/ovs-cni-plugin@sha256:8b877c9eece93f83343ab2fb54f3371b5c67ade8346c6dba6a56b4eb3849d3fe
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:09:44 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:23:42 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:42 +0530
+    Ready:          True
+    Restart Count:  2
+    Limits:
+      cpu:     100m
+      memory:  50Mi
+    Requests:
+      cpu:        100m
+      memory:     50Mi
+    Environment:  <none>
+    Mounts:
+      /host/opt/cni/bin from cnibin (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-jbl86 (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  cnibin:
+    Type:          HostPath (bare host directory volume)
+    Path:          /opt/cni/bin
+    HostPathType:  
+  default-token-jbl86:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-jbl86
+    Optional:    false
+QoS Class:       Guaranteed
+Node-Selectors:  beta.kubernetes.io/arch=amd64
+Tolerations:     node-role.kubernetes.io/master:NoSchedule
+                 node.kubernetes.io/disk-pressure:NoSchedule
+                 node.kubernetes.io/memory-pressure:NoSchedule
+                 node.kubernetes.io/not-ready:NoExecute
+                 node.kubernetes.io/unreachable:NoExecute
+Events:          <none>

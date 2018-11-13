@@ -1,0 +1,72 @@
+Name:               webconsole-59d4c9ccdf-8msqx
+Namespace:          openshift-web-console
+Priority:           0
+PriorityClassName:  <none>
+Node:               cnv-executor-aditya-master1.example.com/172.16.0.18
+Start Time:         Fri, 09 Nov 2018 13:07:56 +0530
+Labels:             app=openshift-web-console
+                    pod-template-hash=1580757789
+                    webconsole=true
+Annotations:        openshift.io/scc=restricted
+Status:             Running
+IP:                 10.128.0.99
+Controlled By:      ReplicaSet/webconsole-59d4c9ccdf
+Containers:
+  webconsole:
+    Container ID:  cri-o://c077520be327954ec47f13288a19101227cb20ce9d9af3177ccb08745ddf552e
+    Image:         brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-web-console:v3.11.16
+    Image ID:      brew-pulp-docker01.web.prod.ext.phx2.redhat.com:8888/openshift3/ose-web-console@sha256:18ef30c0eacb355d88f160f36961a8bbecd90fc4c320e04eb5ccc602f1fde534
+    Port:          8443/TCP
+    Host Port:     0/TCP
+    Command:
+      /usr/bin/origin-web-console
+      --audit-log-path=-
+      -v=0
+      --config=/var/webconsole-config/webconsole-config.yaml
+    State:          Running
+      Started:      Sun, 11 Nov 2018 04:10:07 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    255
+      Started:      Sat, 10 Nov 2018 22:24:38 +0530
+      Finished:     Sun, 11 Nov 2018 04:09:54 +0530
+    Ready:          True
+    Restart Count:  4
+    Requests:
+      cpu:     100m
+      memory:  100Mi
+    Liveness:  exec [/bin/sh -c if [[ ! -f /tmp/webconsole-config.hash ]]; then \
+  md5sum /var/webconsole-config/webconsole-config.yaml > /tmp/webconsole-config.hash; \
+elif [[ $(md5sum /var/webconsole-config/webconsole-config.yaml) != $(cat /tmp/webconsole-config.hash) ]]; then \
+  echo 'webconsole-config.yaml has changed.'; \
+  exit 1; \
+fi && curl -k -f https://0.0.0.0:8443/console/] delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:    http-get https://:8443/healthz delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from webconsole-token-78k68 (ro)
+      /var/serving-cert from serving-cert (rw)
+      /var/webconsole-config from webconsole-config (rw)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  serving-cert:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  webconsole-serving-cert
+    Optional:    false
+  webconsole-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      webconsole-config
+    Optional:  false
+  webconsole-token-78k68:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  webconsole-token-78k68
+    Optional:    false
+QoS Class:       Burstable
+Node-Selectors:  node-role.kubernetes.io/master=true
+Tolerations:     node.kubernetes.io/memory-pressure:NoSchedule
+Events:          <none>
